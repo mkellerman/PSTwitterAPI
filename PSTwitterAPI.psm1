@@ -518,7 +518,7 @@ function Invoke-ReadFromTwitterStream{
                     $filter = $Null
                     if($Parameters.Count -gt 0)
                     {
-                        $Parameters.Keys | % { $filter = $filter + $_  +'='+ [System.Net.WebUtility]::UrlEncode($Parameters.Item($_)).Replace('+','%20') + '&'}
+                        $Parameters.Keys | % { $filter = $filter + $_  +'='+ [System.Net.WebUtility]::UrlEncode($Parameters.Item($_)).Replace('+','%20').Replace('!','%21') + '&'}
                         $filter = $filter.Substring(0, $filter.Length-1)
                         $POSTData = [System.Text.Encoding]::UTF8.GetBytes($filter)
                         $Request.ContentType = "application/x-www-form-urlencoded"
