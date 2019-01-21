@@ -5,7 +5,7 @@ $Script:EndPointFileFormat = 'json'
 
 $Script:CmdletBindingParameters = (Get-Command 'Get-Culture').Parameters.Keys
 
-function Set-OAuthSettings {
+function Set-TwitterOAuthSettings {
 
     Param(
         $ApiKey,
@@ -19,7 +19,7 @@ function Set-OAuthSettings {
     }
     Process {
 
-        If ($OAuthSettings = Get-OAuthSettings -AccessToken $AccessToken -ErrorAction SilentlyContinue) {
+        If ($OAuthSettings = Get-TwitterOAuthSettings -AccessToken $AccessToken -ErrorAction SilentlyContinue) {
             If ($Force) {
                 [void]$Script:OAuthCollection.Remove($OAuthSettings)
             } Else {
@@ -45,7 +45,7 @@ function Set-OAuthSettings {
 
 }
 
-function Get-OAuthSettings {
+function Get-TwitterOAuthSettings {
 
     [CmdletBinding()]  
     Param($Resource, $AccessToken)
@@ -177,7 +177,7 @@ function Invoke-TwitterAPI {
     )
 
     If (-Not($OAuthSettings)) {
-        $OAuthSettings = Get-OAuthSettings -Resource $Resource
+        $OAuthSettings = Get-TwitterOAuthSettings -Resource $Resource
     }
     
     $OAuthParameters_Params = @{}
@@ -231,7 +231,7 @@ function Get-Eposh {
 
 
 
-#region [ Public API ] ======================================
+#region [ Mimic Public API ] ======================================
 
 function Get-TwitterStatuses_MentionsTimeline {
 <#
@@ -284,7 +284,7 @@ function Get-TwitterStatuses_MentionsTimeline {
 
     Process {
 
-        If (-Not $OAuthSettings) { $OAuthSettings = Get-OAuthSettings -Resource $Resource }
+        If (-Not $OAuthSettings) { $OAuthSettings = Get-TwitterOAuthSettings -Resource $Resource }
         Invoke-TwitterAPI -Resource $Resource -Method $Method -Parameters $Parameters -OAuthSettings $OAuthSettings
                     
     }
@@ -367,7 +367,7 @@ function Get-TwitterStatuses_UserTimeline {
 
     Process {
 
-        If (-Not $OAuthSettings) { $OAuthSettings = Get-OAuthSettings -Resource $Resource }
+        If (-Not $OAuthSettings) { $OAuthSettings = Get-TwitterOAuthSettings -Resource $Resource }
         Invoke-TwitterAPI -Resource $Resource -Method $Method -Parameters $Parameters -OAuthSettings $OAuthSettings | Tee-Object -Variable Results | ForEach { $_ }
 
         if (($all.IsPresent) -and ($Results.id)) {
@@ -433,7 +433,7 @@ function Get-TwitterStatuses_HomeTimeline {
 
     Process {
 
-        If (-Not $OAuthSettings) { $OAuthSettings = Get-OAuthSettings -Resource $Resource }
+        If (-Not $OAuthSettings) { $OAuthSettings = Get-TwitterOAuthSettings -Resource $Resource }
         Invoke-TwitterAPI -Resource $Resource -Method $Method -Parameters $Parameters -OAuthSettings $OAuthSettings | ForEach { $_ }
                     
     }
@@ -494,7 +494,7 @@ function Get-TwitterStatuses_RetweetsOfMe {
 
     Process {
 
-        If (-Not $OAuthSettings) { $OAuthSettings = Get-OAuthSettings -Resource $Resource }
+        If (-Not $OAuthSettings) { $OAuthSettings = Get-TwitterOAuthSettings -Resource $Resource }
         Invoke-TwitterAPI -Resource $Resource -Method $Method -Parameters $Parameters -OAuthSettings $OAuthSettings | ForEach { $_ }
                     
     }
@@ -540,7 +540,7 @@ function Get-TwitterStatuses_RetweetsID {
 
     Process {
 
-        If (-Not $OAuthSettings) { $OAuthSettings = Get-OAuthSettings -Resource $Resource }
+        If (-Not $OAuthSettings) { $OAuthSettings = Get-TwitterOAuthSettings -Resource $Resource }
         Invoke-TwitterAPI -Resource $Resource -Method $Method -Parameters $Parameters -OAuthSettings $OAuthSettings | ForEach { $_ }
         
     }
@@ -590,7 +590,7 @@ function Get-TwitterStatuses_ShowID {
 
     Process {
 
-        If (-Not $OAuthSettings) { $OAuthSettings = Get-OAuthSettings -Resource $Resource }
+        If (-Not $OAuthSettings) { $OAuthSettings = Get-TwitterOAuthSettings -Resource $Resource }
         Invoke-TwitterAPI -Resource $Resource -Method $Method -Parameters $Parameters -OAuthSettings $OAuthSettings | ForEach { $_ }
         
     }
@@ -634,7 +634,7 @@ function Send-TwitterStatuses_DestroyID {
 
     Process {
 
-        If (-Not $OAuthSettings) { $OAuthSettings = Get-OAuthSettings -Resource $Resource }
+        If (-Not $OAuthSettings) { $OAuthSettings = Get-TwitterOAuthSettings -Resource $Resource }
         Invoke-TwitterAPI -Resource $Resource -Method $Method -Parameters $Parameters -OAuthSettings $OAuthSettings | ForEach { $_ }
         
     }
@@ -711,7 +711,7 @@ function Send-TwitterStatuses_Update {
 
     Process {
 
-        If (-Not $OAuthSettings) { $OAuthSettings = Get-OAuthSettings -Resource $Resource }
+        If (-Not $OAuthSettings) { $OAuthSettings = Get-TwitterOAuthSettings -Resource $Resource }
         Invoke-TwitterAPI -Resource $Resource -Method $Method -Parameters $Parameters -OAuthSettings $OAuthSettings | ForEach { $_ }
         
     }
@@ -749,7 +749,7 @@ function Send-TwitterStatuses_RetweetID {
 
     Process {
 
-        If (-Not $OAuthSettings) { $OAuthSettings = Get-OAuthSettings -Resource $Resource }
+        If (-Not $OAuthSettings) { $OAuthSettings = Get-TwitterOAuthSettings -Resource $Resource }
         Invoke-TwitterAPI -Resource $Resource -Method $Method -Parameters $Parameters -OAuthSettings $OAuthSettings | ForEach { $_ }
         
     }
@@ -787,7 +787,7 @@ function Send-TwitterStatuses_UnretweetID {
 
     Process {
 
-        If (-Not $OAuthSettings) { $OAuthSettings = Get-OAuthSettings -Resource $Resource }
+        If (-Not $OAuthSettings) { $OAuthSettings = Get-TwitterOAuthSettings -Resource $Resource }
         Invoke-TwitterAPI -Resource $Resource -Method $Method -Parameters $Parameters -OAuthSettings $OAuthSettings | ForEach { $_ }
         
     }
@@ -841,14 +841,14 @@ function Get-TwitterStatuses_Retweeters_IDs {
 
     Process {
 
-        If (-Not $OAuthSettings) { $OAuthSettings = Get-OAuthSettings -Resource $Resource }
+        If (-Not $OAuthSettings) { $OAuthSettings = Get-TwitterOAuthSettings -Resource $Resource }
         Invoke-TwitterAPI -Resource $Resource -Method $Method -Parameters $Parameters -OAuthSettings $OAuthSettings | Tee-Object -Variable Results | % { [int64[]]$_.ids }
         
         While (($all.IsPresent) -and ($Results.next_cursor)) {
 
             $Parameters.cursor = $Results.next_cursor
             
-            If (-Not $OAuthSettings) { $OAuthSettings = Get-OAuthSettings -Resource $Resource }
+            If (-Not $OAuthSettings) { $OAuthSettings = Get-TwitterOAuthSettings -Resource $Resource }
             Invoke-TwitterAPI -Resource $Resource -Method $Method -Parameters $Parameters -OAuthSettings $OAuthSettings | Tee-Object -Variable Results | % { [int64[]]$_.ids }
             
         }
@@ -910,7 +910,7 @@ function Get-TwitterStatuses_Lookup {
 
             If ($Parameters.id) { $Parameters.id = [string](($ids[$i..($i+$max_count-1)] | ? { $_ }) -Join ',') }
             
-            If (-Not $OAuthSettings) { $OAuthSettings = Get-OAuthSettings -Resource $Resource }
+            If (-Not $OAuthSettings) { $OAuthSettings = Get-TwitterOAuthSettings -Resource $Resource }
             Invoke-TwitterAPI -Resource $Resource -Method $Method -Parameters $Parameters -OAuthSettings $OAuthSettings | ForEach { $_ }
             
             [int64[]]$ids = $ids | Select-Object -Skip $max_count
@@ -925,7 +925,7 @@ function Get-TwitterStatuses_Lookup {
 
             If ($Parameters.id) { $Parameters.id = [string](($ids | ? { $_ }) -Join ',') }
 
-            If (-Not $OAuthSettings) { $OAuthSettings = Get-OAuthSettings -Resource $Resource }
+            If (-Not $OAuthSettings) { $OAuthSettings = Get-TwitterOAuthSettings -Resource $Resource }
             Invoke-TwitterAPI -Resource $Resource -Method $Method -Parameters $Parameters -OAuthSettings $OAuthSettings | ForEach { $_ }
 
         }
@@ -1096,14 +1096,14 @@ function Get-TwitterSearch_Tweets {
 
     Process {
 
-        If (-Not $OAuthSettings) { $OAuthSettings = Get-OAuthSettings -Resource $Resource }
+        If (-Not $OAuthSettings) { $OAuthSettings = Get-TwitterOAuthSettings -Resource $Resource }
         Invoke-TwitterAPI -Resource $Resource -Method $Method -Parameters $Parameters -OAuthSettings $OAuthSettings | Tee-Object -Variable Results | % { $_.statuses }
         
         While (($all.IsPresent) -and ($Results)) {
 
             $Parameters.max_id = $Results.statuses.id | Sort-Object | Select-Object -First 1 | ForEach-Object { [int64]$_ - 1 }
             
-            If (-Not $OAuthSettings) { $OAuthSettings = Get-OAuthSettings -Resource $Resource }
+            If (-Not $OAuthSettings) { $OAuthSettings = Get-TwitterOAuthSettings -Resource $Resource }
             Invoke-TwitterAPI -Resource $Resource -Method $Method -Parameters $Parameters -OAuthSettings $OAuthSettings | Tee-Object -Variable Results | % { $_.statuses }
 
         }
@@ -1173,14 +1173,14 @@ function Get-TwitterFriends_IDs {
 
     Process {
 
-        If (-Not $OAuthSettings) { $OAuthSettings = Get-OAuthSettings -Resource $Resource }
+        If (-Not $OAuthSettings) { $OAuthSettings = Get-TwitterOAuthSettings -Resource $Resource }
         Invoke-TwitterAPI -Resource $Resource -Method $Method -Parameters $Parameters -OAuthSettings $OAuthSettings | Tee-Object -Variable Results | % { [int64[]]$_.ids }
         
         While (($all.IsPresent) -and ($Results.next_cursor)) {
 
         $Parameters.cursor = $Results.next_cursor
         
-        If (-Not $OAuthSettings) { $OAuthSettings = Get-OAuthSettings -Resource $Resource }
+        If (-Not $OAuthSettings) { $OAuthSettings = Get-TwitterOAuthSettings -Resource $Resource }
         Invoke-TwitterAPI -Resource $Resource -Method $Method -Parameters $Parameters -OAuthSettings $OAuthSettings | Tee-Object -Variable Results | % { [int64[]]$_.ids }
 
         }
@@ -1242,14 +1242,14 @@ function Get-TwitterFollowers_IDs {
 
     Process {
 
-        If (-Not $OAuthSettings) { $OAuthSettings = Get-OAuthSettings -Resource $Resource }
+        If (-Not $OAuthSettings) { $OAuthSettings = Get-TwitterOAuthSettings -Resource $Resource }
         Invoke-TwitterAPI -Resource $Resource -Method $Method -Parameters $Parameters -OAuthSettings $OAuthSettings | Tee-Object -Variable Results | % { [int64[]]$_.ids }
         
         While (($all.IsPresent) -and ($Results.next_cursor)) {
 
             $Parameters.cursor = $Results.next_cursor
 
-            If (-Not $OAuthSettings) { $OAuthSettings = Get-OAuthSettings -Resource $Resource }
+            If (-Not $OAuthSettings) { $OAuthSettings = Get-TwitterOAuthSettings -Resource $Resource }
             Invoke-TwitterAPI -Resource $Resource -Method $Method -Parameters $Parameters -OAuthSettings $OAuthSettings | Tee-Object -Variable Results | % { [int64[]]$_.ids }
             
         }
@@ -1335,7 +1335,7 @@ function Get-TwitterUser_Lookup {
             If ($Parameters.user_id)     { $Parameters.user_id     = [string](($user_ids[$i..($i+$max_count-1)] | ? { $_ }) -Join ',') }
             If ($Parameters.screen_name) { $Parameters.screen_name = [string](($screen_names[$i..($i+$max_count-1)] | ? { $_ }) -Join ',') }
 
-            If (-Not $OAuthSettings) { $OAuthSettings = Get-OAuthSettings -Resource $Resource }
+            If (-Not $OAuthSettings) { $OAuthSettings = Get-TwitterOAuthSettings -Resource $Resource }
             Invoke-TwitterAPI -Resource $Resource -Method $Method -Parameters $Parameters -OAuthSettings $OAuthSettings | ForEach { $_ }
             
             [int64[]]$user_ids = $user_ids | Select-Object -Skip $max_count
@@ -1354,7 +1354,7 @@ function Get-TwitterUser_Lookup {
             If ($Parameters.user_id)     { $Parameters.user_id     = [string](($user_ids | ? { $_ }) -Join ',') }
             If ($Parameters.screen_name) { $Parameters.screen_name = [string](($screen_names | ? { $_ }) -Join ',') }
 
-            If (-Not $OAuthSettings) { $OAuthSettings = Get-OAuthSettings -Resource $Resource }
+            If (-Not $OAuthSettings) { $OAuthSettings = Get-TwitterOAuthSettings -Resource $Resource }
             Invoke-TwitterAPI -Resource $Resource -Method $Method -Parameters $Parameters -OAuthSettings $OAuthSettings | ForEach { $_ }
 
         }
@@ -1418,14 +1418,14 @@ function Get-TwitterLists_list {
 
     Process {
 
-        If (-Not $OAuthSettings) { $OAuthSettings = Get-OAuthSettings -Resource $Resource }
+        If (-Not $OAuthSettings) { $OAuthSettings = Get-TwitterOAuthSettings -Resource $Resource }
         Invoke-TwitterAPI -Resource $Resource -Method $Method -Parameters $Parameters -OAuthSettings $OAuthSettings | Tee-Object -Variable Results | % { $_ }
         
         While (($all.IsPresent) -and ($Results.next_cursor)) {
 
         $Parameters.cursor = $Results.next_cursor
 
-        If (-Not $OAuthSettings) { $OAuthSettings = Get-OAuthSettings -Resource $Resource }
+        If (-Not $OAuthSettings) { $OAuthSettings = Get-TwitterOAuthSettings -Resource $Resource }
         Invoke-TwitterAPI -Resource $Resource -Method $Method -Parameters $Parameters -OAuthSettings $OAuthSettings | Tee-Object -Variable Results | % { $_ }
         
         }
@@ -1482,14 +1482,14 @@ function Get-TwitterLists_subscriptions {
 
     Process {
 
-        If (-Not $OAuthSettings) { $OAuthSettings = Get-OAuthSettings -Resource $Resource }
+        If (-Not $OAuthSettings) { $OAuthSettings = Get-TwitterOAuthSettings -Resource $Resource }
         Invoke-TwitterAPI -Resource $Resource -Method $Method -Parameters $Parameters -OAuthSettings $OAuthSettings | Tee-Object -Variable Results | % { $_.lists }
         
         While (($all.IsPresent) -and ($Results.next_cursor)) {
 
             $Parameters.cursor = $Results.next_cursor
 
-            If (-Not $OAuthSettings) { $OAuthSettings = Get-OAuthSettings -Resource $Resource }
+            If (-Not $OAuthSettings) { $OAuthSettings = Get-TwitterOAuthSettings -Resource $Resource }
             Invoke-TwitterAPI -Resource $Resource -Method $Method -Parameters $Parameters -OAuthSettings $OAuthSettings | Tee-Object -Variable Results | % { $_ }
             
         }
@@ -1556,7 +1556,7 @@ function Get-TwitterApplication_RateLimitStatus {
 
     Process {
 
-        If (-Not $OAuthSettings) { If (-Not $OAuthSettings) { $OAuthSettings = Get-OAuthSettings -Resource $Resource } }
+        If (-Not $OAuthSettings) { If (-Not $OAuthSettings) { $OAuthSettings = Get-TwitterOAuthSettings -Resource $Resource } }
         Invoke-TwitterAPI -Resource $Resource -Method $Method -Parameters $Parameters -OAuthSettings $OAuthSettings
 
     }
