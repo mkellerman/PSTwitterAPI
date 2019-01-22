@@ -2,7 +2,7 @@
 
 ## Features
 
-- API Helpers functions to mimic the Twitter API resource commands.
+- API Helpers cmdlets to mimic the Twitter API enpoints.
 - Handles loops to request more data (eg: 200 tweets per call).
 - You can set multiple ApiKey/Token.
 - Handles rate limit for you, and rotate through your ApiKeys.
