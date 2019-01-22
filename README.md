@@ -1,20 +1,40 @@
 # PSTwitterAPI
 
+## Features
+
+- API Helpers functions to mimic the Twitter API resource commands.
+- Handles loops to request more data (eg: 200 tweets per call).
+- You can set multiple ApiKey/Token.
+- Handles rate limit for you, and rotate through your ApiKeys.
+
 ## Installation
+
 ```powershell
 Install-Module PSTwitterAPI
 ```
 
-## Features
-
 ## Getting started
+
 ```powershell
-Invoke-TwitterAPI
-Set-TwitterOAuthSettings
-Get-TwitterOAuthSettings
+
+Import-Module PSTwitterAPI
+
+$OAuthSettings = @{
+  ApiKey = $env:ApiKey
+  ApiSecret = $env:ApiSecret
+  AccessToken = $env:AccessToken
+  AccessTokenSecret =$env:AccessTokenSecret
+}
+Set-TwitterOAuthSettings @OAuthSettings
+
+# Use one of the API Helpers provided:
+Get-TwitterUser_Lookup -screen_name 'mkellerman'
+
+# Use TwitterAPI rest method directly:
+Invoke-TwitterAPI -Resource 'statuses/update' -Parameters @{ status = 'Hello World!' }
 ```
 
-## Completed API Helper endpoints:
+## Completed API Helper endpoints
 
 - Get-TwitterApplication_RateLimitStatus
 - Get-TwitterFollowers_IDs
@@ -36,84 +56,8 @@ Get-TwitterOAuthSettings
 - Send-TwitterStatuses_UnretweetID
 - Send-TwitterStatuses_Update
 
-## Missing API Helpter endpoints:
+## Resources
 
-- POST statuses/update_with_media
-- GET statuses/oembed
-- POST media/upload
-- POST media/upload chunked
-- GET direct_messages/sent
-- GET direct_messages/show
-- GET direct_messages
-- POST direct_messages/destroy
-- POST direct_messages/new
-- GET friendships/no_retweets/ids
-- GET friendships/incoming
-- GET friendships/outgoing
-- POST friendships/create
-- POST friendships/destroy
-- POST friendships/update
-- GET friendships/show
-- GET friends/list
-- GET followers/list
-- GET friendships/lookup
-- GET account/settings
-- GET account/verify_credentials
-- POST account/settings
-- POST account/update_delivery_device
-- POST account/update_profile
-- POST account/update_profile_background_image
-- POST account/update_profile_image
-- GET blocks/list
-- GET blocks/ids
-- POST blocks/create
-- POST blocks/destroy
-- GET users/show
-- GET users/search
-- POST account/remove_profile_banner
-- POST account/update_profile_banner
-- GET users/profile_banner
-- POST mutes/users/create
-- POST mutes/users/destroy
-- GET mutes/users/ids
-- GET mutes/users/list
-- GET users/suggestions/:slug
-- GET users/suggestions
-- GET users/suggestions/:slug/members
-- GET favorites/list
-- POST favorites/destroy
-- POST favorites/create
-- GET lists/statuses
-- POST lists/members/destroy
-- GET lists/memberships
-- GET lists/subscribers
-- POST lists/subscribers/create
-- GET lists/subscribers/show
-- POST lists/subscribers/destroy
-- POST lists/members/create_all
-- GET lists/members/show
-- GET lists/members
-- POST lists/members/create
-- POST lists/destroy
-- POST lists/update
-- POST lists/create
-- GET lists/show
-- GET lists/subscriptions
-- POST lists/members/destroy_all
-- GET lists/ownerships
-- GET saved_searches/list
-- GET saved_searches/show/:id
-- POST saved_searches/create
-- POST saved_searches/destroy/:id
-- GET geo/id/:place_id
-- GET geo/reverse_geocode
-- GET geo/search
-- POST geo/place
-- GET trends/place
-- GET trends/available
-- GET help/configuration
-- GET help/languages
-- GET help/privacy
-- GET help/tos
-- GET trends/closest
-- POST users/report_spam
+- https://twittercommunity.com/t/how-to-get-my-api-key/7033
+- https://dev.twitter.com/rest/public
+
