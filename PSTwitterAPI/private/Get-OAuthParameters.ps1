@@ -23,7 +23,7 @@ function Get-OAuthParameters {
 
             ## Build the enpoint url
             $EndPointUrl = "${BaseUrl}?"
-            $Parameters.GetEnumerator() | Sort-Object Name | % { $EndPointUrl += "$($_.Key)=$($_.Value)&" }
+            $Parameters.GetEnumerator() | Sort-Object Name | ForEach-Object { $EndPointUrl += "$($_.Key)=$($_.Value)&" }
             $EndPointUrl = $EndPointUrl.TrimEnd('&')
 
             ## Build the signature
