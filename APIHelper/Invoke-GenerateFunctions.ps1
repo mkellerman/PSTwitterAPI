@@ -12,7 +12,7 @@ $FunctionParameters = @()
 ForEach ($Parameter in $ApiResource.ReferenceProperties.Parameters) {
     $HelpParameters += ".PARAMETER $($Parameter.Name)"
     $HelpParameters += "    $($Parameter.Description)`r`n"
-    $FunctionParameters += "[string]`$$($Parameter.Name)"
+    $FunctionParameters += "[string]`$$(($Parameter.Name -Split " ")[0])"
 }
 
 @"
