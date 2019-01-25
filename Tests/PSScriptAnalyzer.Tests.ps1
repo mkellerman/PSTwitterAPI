@@ -119,7 +119,7 @@ Describe "General project validation: ${env:BHProjectName}" {
 Describe "${env:BHProjectName} ScriptAnalyzer" -Tag 'Compliance' {
     $PSScriptAnalyzerSettings = @{
         Severity    = @('Error', 'Warning')
-        ExcludeRule = @('PSUseSingularNouns', 'PSUseShouldProcessForStateChangingFunctions')
+        ExcludeRule = @('PSUseSingularNouns', 'PSUseShouldProcessForStateChangingFunctions' )
     }
     # Test all functions with PSScriptAnalyzer
     $ScriptAnalyzerErrors = @()
