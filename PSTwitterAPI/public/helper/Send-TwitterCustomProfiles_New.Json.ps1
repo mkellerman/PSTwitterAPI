@@ -22,7 +22,7 @@
     [CmdletBinding()]
     Param(
         [string]$name,
-        [string]$avatar.media.id
+        [string]$avatar
     )
     Begin {
 
