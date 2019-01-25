@@ -1,3 +1,8 @@
+[![PSGallery Version](https://img.shields.io/powershellgallery/v/PSTwitterAPI.svg?style=for-the-badge&label=PowerShell%20Gallery)](https://www.powershellgallery.com/packages/PSTwitterAPI/)
+![PSGallery Downloads](https://img.shields.io/powershellgallery/dt/PSTwitterAPI.svg?style=for-the-badge&label=Downloads)
+
+![Azure Pipeline](https://img.shields.io/azure-devops/build/mkellerman/PSTwitterAPI/7.svg?style=for-the-badge&label=Azure%20Pipeline)
+
 # PSTwitterAPI
 
 ## Features
