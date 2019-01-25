@@ -117,60 +117,47 @@ Describe "General project validation: ${env:BHProjectName}" {
 }
 
 Describe "${env:BHProjectName} ScriptAnalyzer" -Tag 'Compliance' {
+
+    # Get a list of all internal and Exported functions
+    $ItemFiles = @()
+    $ItemFiles += Get-ChildItem -Path "${env:BHModulePath}\private" -Filter *.ps1 -Recurse
+    $ItemFiles += Get-ChildItem -Path "${env:BHModulePath}\public" -Filter *.ps1 -Recurse
+    
     $PSScriptAnalyzerSettings = @{
         Severity    = @('Error', 'Warning')
         ExcludeRule = @('PSUseSingularNouns', 'PSUseShouldProcessForStateChangingFunctions' )
     }
-    # Test all functions with PSScriptAnalyzer
-    $ScriptAnalyzerErrors = @()
-    $ScriptAnalyzerErrors += Invoke-ScriptAnalyzer -Path "${env:BHModulePath}\public" @PSScriptAnalyzerSettings
-    $ScriptAnalyzerErrors += Invoke-ScriptAnalyzer -Path "${env:BHModulePath}\private" @PSScriptAnalyzerSettings
-    # Get a list of all internal and Exported functions
-    $InternalFunctions = Get-ChildItem -Path "${env:BHModulePath}\private" -Filter *.ps1 | Select-Object -ExpandProperty Name
-    $ExportedFunctions = Get-ChildItem -Path "${env:BHModulePath}\public" -Filter *.ps1 | Select-Object -ExpandProperty Name
-    $AllFunctions = ($InternalFunctions + $ExportedFunctions) | Sort-Object
-    $FunctionsWithErrors = $ScriptAnalyzerErrors.ScriptName | Sort-Object -Unique
-    if ($ScriptAnalyzerErrors) {
-        $testCase = $ScriptAnalyzerErrors | Foreach-Object {
-            @{
-                RuleName   = $_.RuleName
-                ScriptName = $_.ScriptName
-                Message    = $_.Message
-                Severity   = $_.Severity
-                Line       = $_.Line
-            }
-        }
-        # Compare those with not successfull
-        $FunctionsWithoutErrors = Compare-Object -ReferenceObject $AllFunctions -DifferenceObject $FunctionsWithErrors  | Select-Object -ExpandProperty InputObject
-        Context 'ScriptAnalyzer Testing' {
-            It "Function <ScriptName> should not use <Message> on line <Line>" -TestCases $testCase {
-                param(
-                    $RuleName,
-                    $ScriptName,
-                    $Message,
-                    $Severity,
-                    $Line
-                )
-                $ScriptName | Should BeNullOrEmpty
-            }
-        }
-    } else {
-        # Everything was perfect, let's show that as well
-        $FunctionsWithoutErrors = $AllFunctions
-    }
 
-    # Show good functions in the test, the more green the better
-    Context 'Successful ScriptAnalyzer Testing' {
-        $testCase = $FunctionsWithoutErrors | Foreach-Object {
-            @{
-                ScriptName = $_
+    ForEach ($ItemFile in $ItemFiles) {
+        Context "Testing File - $($ItemFile.Name)" {
+            $ScriptAnalyzerResults = Invoke-ScriptAnalyzer -Path $ItemFile.FullName @PSScriptAnalyzerSettings
+            $TestResults = $ScriptAnalyzerResults | Foreach-Object {
+                @{
+                    RuleName   = $_.RuleName
+                    ScriptName = $_.ScriptName
+                    Message    = $_.Message
+                    Severity   = $_.Severity
+                    Line       = $_.Line
+                }
+            }
+            If ($TestResults) {
+                It "Function <ScriptName> should not use <Message> on line <Line>" -TestCases $TestResults {
+                    param(
+                        $RuleName,
+                        $ScriptName,
+                        $Message,
+                        $Severity,
+                        $Line
+                    )
+                    $ScriptName | Should BeNullOrEmpty
+                }
+            } Else {
+                It "Function should not return any errors" {
+                    $TestResults.Count | Should Be 0
+                }
             }
         }
-        It "Function <ScriptName> has no ScriptAnalyzerErrors" -TestCases $testCase {
-            param(
-                $ScriptName
-            )
-            $ScriptName | Should Not BeNullOrEmpty
-        }
+
     }
+    
 }
