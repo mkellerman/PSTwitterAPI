@@ -5,18 +5,12 @@ function Invoke-TwitterAPI {
         [Parameter(Mandatory)]
         [string]$ResourceUrl,
         [Parameter(Mandatory)]
-        [string]$Resource,
-        [Parameter(Mandatory)]
         [string]$Method,
         [Parameter(Mandatory)]
         $Parameters,
-        [Parameter(Mandatory=$false)]
+        [Parameter(Mandatory)]
         $OAuthSettings
     )
-
-    If (-Not($OAuthSettings)) {
-        $OAuthSettings = Get-TwitterOAuthSettings -Resource $Resource
-    }
 
     $OAuthParameters_Params = @{}
     $OAuthParameters_Params['ApiKey'] = $OAuthSettings.ApiKey
