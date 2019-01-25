@@ -17,7 +17,7 @@ function New-APIHelperFunction ($ApiResource, $Path) {
     ForEach ($Parameter in $ApiResource.ReferenceProperties.Parameters) {
         $HelpParameters += ".PARAMETER $($Parameter.Name)"
         $HelpParameters += "    $($Parameter.Description)`r`n"
-        $FunctionParameters += "[string]`$$(($Parameter.Name -Split " ")[0])"
+        $FunctionParameters += "[string]`$$(($Parameter.Name -Split " " -Split "\.")[0])"
     }
 
 $FunctionString = @"
