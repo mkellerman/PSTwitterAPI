@@ -26,7 +26,7 @@ function Get-TwitterStatuses_HomeTimeline {
     When set to either true , t or 1 , each Tweet returned in a timeline will include a user object including only the status authors numerical ID. Omit this parameter to receive the complete user object.
 
 .PARAMETER exclude_replies
-    This parameter will prevent replies from appearing in the returned timeline. Using exclude_replies with the count parameter will mean you will receive up-to count Tweets — this is because the count parameter retrieves that many Tweets before filtering out retweets and replies.
+    This parameter will prevent replies from appearing in the returned timeline. Using exclude_replies with the count parameter will mean you will receive up-to count Tweets ï¿½ this is because the count parameter retrieves that many Tweets before filtering out retweets and replies.
 
 .PARAMETER include_entities
     The entities node will not be included when set to false.
@@ -52,7 +52,7 @@ function Get-TwitterStatuses_HomeTimeline {
         [string]$ResourceUrl = 'https://api.twitter.com/1.1/statuses/home_timeline.json'
 
         [hashtable]$Parameters = $PSBoundParameters
-                   $CmdletBindingParameters | % { $Parameters.Remove($_) }
+                   $CmdletBindingParameters | ForEach-Object { $Parameters.Remove($_) }
 
     }
     Process {

@@ -28,7 +28,7 @@ function Send-TwitterCollections_Destroy {
         [string]$ResourceUrl = 'https://api.twitter.com/1.1/collections/destroy.json'
 
         [hashtable]$Parameters = $PSBoundParameters
-                   $CmdletBindingParameters | % { $Parameters.Remove($_) }
+                   $CmdletBindingParameters | ForEach-Object { $Parameters.Remove($_) }
 
     }
     Process {

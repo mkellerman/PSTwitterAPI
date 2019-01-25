@@ -11,7 +11,7 @@ function Send-TwitterMedia_Subtitles_Create {
     
     Use this endpoint to associate uploaded subtitles to an uploaded video. You can associate subtitles to video before or after Tweeting.
     
-    Request flow for associating subtitle to video before the video is Tweeted : 1. Upload video using the chunked upload endpoint and get the video media_id. 2. Upload subtitle using the chunked upload endpoint with media category set to “Subtitles” and get the subtitle media_id. 3. Call this endpoint to associate the subtitle to the video. 4. Create Tweet with the video media_id.
+    Request flow for associating subtitle to video before the video is Tweeted : 1. Upload video using the chunked upload endpoint and get the video media_id. 2. Upload subtitle using the chunked upload endpoint with media category set to ï¿½Subtitlesï¿½ and get the subtitle media_id. 3. Call this endpoint to associate the subtitle to the video. 4. Create Tweet with the video media_id.
     
     Request flow for associating subtitle to video after the video is Tweeted : 1. Upload video using the chunked upload endpoint and get the video media_id. 2. Create Tweet with the video media_id. 3. Upload subtitle using the chunked upload endpoint with media category set to SUBTITLES and get the subtitle media_id. 4. Call this endpoint to associate the subtitle to the video.
     
@@ -50,7 +50,7 @@ function Send-TwitterMedia_Subtitles_Create {
         [string]$ResourceUrl = 'https://upload.twitter.com/1.1/media/subtitles/create.json'
 
         [hashtable]$Parameters = $PSBoundParameters
-                   $CmdletBindingParameters | % { $Parameters.Remove($_) }
+                   $CmdletBindingParameters | ForEach-Object { $Parameters.Remove($_) }
 
     }
     Process {

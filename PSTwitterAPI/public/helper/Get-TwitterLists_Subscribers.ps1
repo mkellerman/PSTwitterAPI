@@ -58,7 +58,7 @@ function Get-TwitterLists_Subscribers {
         [string]$ResourceUrl = 'https://api.twitter.com/1.1/lists/subscribers.json'
 
         [hashtable]$Parameters = $PSBoundParameters
-                   $CmdletBindingParameters | % { $Parameters.Remove($_) }
+                   $CmdletBindingParameters | ForEach-Object { $Parameters.Remove($_) }
 
     }
     Process {

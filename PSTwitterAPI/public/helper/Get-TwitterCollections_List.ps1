@@ -46,7 +46,7 @@ function Get-TwitterCollections_List {
         [string]$ResourceUrl = 'https://api.twitter.com/1.1/collections/list.json'
 
         [hashtable]$Parameters = $PSBoundParameters
-                   $CmdletBindingParameters | % { $Parameters.Remove($_) }
+                   $CmdletBindingParameters | ForEach-Object { $Parameters.Remove($_) }
 
     }
     Process {

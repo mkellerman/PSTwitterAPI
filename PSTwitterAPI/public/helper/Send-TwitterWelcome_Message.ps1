@@ -30,7 +30,7 @@ function Send-TwitterWelcome_Message {
         [string]$ResourceUrl = 'https://api.twitter.com/1.1/direct_messages/welcome_messages/new.json'
 
         [hashtable]$Parameters = $PSBoundParameters
-                   $CmdletBindingParameters | % { $Parameters.Remove($_) }
+                   $CmdletBindingParameters | ForEach-Object { $Parameters.Remove($_) }
 
     }
     Process {

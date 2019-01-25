@@ -36,7 +36,7 @@ function Send-TwitterMutes_Users_Create {
         [string]$ResourceUrl = 'https://api.twitter.com/1.1/mutes/users/create.json'
 
         [hashtable]$Parameters = $PSBoundParameters
-                   $CmdletBindingParameters | % { $Parameters.Remove($_) }
+                   $CmdletBindingParameters | ForEach-Object { $Parameters.Remove($_) }
 
     }
     Process {

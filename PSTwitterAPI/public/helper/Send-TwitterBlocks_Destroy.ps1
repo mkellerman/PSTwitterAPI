@@ -40,7 +40,7 @@ function Send-TwitterBlocks_Destroy {
         [string]$ResourceUrl = 'POST https://api.twitter.com/1.1/blocks/destroy.json'
 
         [hashtable]$Parameters = $PSBoundParameters
-                   $CmdletBindingParameters | % { $Parameters.Remove($_) }
+                   $CmdletBindingParameters | ForEach-Object { $Parameters.Remove($_) }
 
     }
     Process {

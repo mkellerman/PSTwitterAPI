@@ -28,7 +28,7 @@ function Get-TwitterUsers_Suggestions_Slug_Members {
         [string]$ResourceUrl = 'https://api.twitter.com/1.1/users/suggestions/:slug/members.json'
 
         [hashtable]$Parameters = $PSBoundParameters
-                   $CmdletBindingParameters | % { $Parameters.Remove($_) }
+                   $CmdletBindingParameters | ForEach-Object { $Parameters.Remove($_) }
 
     }
     Process {

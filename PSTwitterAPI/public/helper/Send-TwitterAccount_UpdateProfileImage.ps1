@@ -38,7 +38,7 @@ function Send-TwitterAccount_UpdateProfileImage {
         [string]$ResourceUrl = 'https://api.twitter.com/1.1/account/update_profile_image.json'
 
         [hashtable]$Parameters = $PSBoundParameters
-                   $CmdletBindingParameters | % { $Parameters.Remove($_) }
+                   $CmdletBindingParameters | ForEach-Object { $Parameters.Remove($_) }
 
     }
     Process {

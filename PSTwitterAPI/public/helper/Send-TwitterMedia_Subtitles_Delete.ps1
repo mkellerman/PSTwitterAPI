@@ -46,7 +46,7 @@ function Send-TwitterMedia_Subtitles_Delete {
         [string]$ResourceUrl = 'https://upload.twitter.com/1.1/media/subtitles/delete.json'
 
         [hashtable]$Parameters = $PSBoundParameters
-                   $CmdletBindingParameters | % { $Parameters.Remove($_) }
+                   $CmdletBindingParameters | ForEach-Object { $Parameters.Remove($_) }
 
     }
     Process {

@@ -44,7 +44,7 @@ function Send-TwitterMedia_Metadata_Create {
         [string]$ResourceUrl = 'https://upload.twitter.com/1.1/media/metadata/create.json'
 
         [hashtable]$Parameters = $PSBoundParameters
-                   $CmdletBindingParameters | % { $Parameters.Remove($_) }
+                   $CmdletBindingParameters | ForEach-Object { $Parameters.Remove($_) }
 
     }
     Process {

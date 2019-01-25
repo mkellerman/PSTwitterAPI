@@ -26,7 +26,7 @@ function Get-TwitterSavedSearches_List {
         [string]$ResourceUrl = 'https://api.twitter.com/1.1/saved_searches/list.json'
 
         [hashtable]$Parameters = $PSBoundParameters
-                   $CmdletBindingParameters | % { $Parameters.Remove($_) }
+                   $CmdletBindingParameters | ForEach-Object { $Parameters.Remove($_) }
 
     }
     Process {

@@ -50,7 +50,7 @@ function Send-TwitterLists_Members_DestroyAll {
         [string]$ResourceUrl = 'https://api.twitter.com/1.1/lists/members/destroy_all.json'
 
         [hashtable]$Parameters = $PSBoundParameters
-                   $CmdletBindingParameters | % { $Parameters.Remove($_) }
+                   $CmdletBindingParameters | ForEach-Object { $Parameters.Remove($_) }
 
     }
     Process {

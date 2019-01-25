@@ -9,7 +9,7 @@ function Get-TwitterFollowers_List {
     
     Returns a cursored collection of user objects for users following the specified user.
     
-    At this time, results are ordered with the most recent following first — however, this ordering is subject to unannounced change and eventual consistency issues. Results are given in groups of 20 users and multiple "pages" of results can be navigated through using the next_cursor value in subsequent requests. See Using cursors to navigate collections for more information.
+    At this time, results are ordered with the most recent following first ï¿½ however, this ordering is subject to unannounced change and eventual consistency issues. Results are given in groups of 20 users and multiple "pages" of results can be navigated through using the next_cursor value in subsequent requests. See Using cursors to navigate collections for more information.
 
 .PARAMETER user_id
     The ID of the user for whom to return results.
@@ -51,7 +51,7 @@ The response from the API will include a previous_cursor and next_cursor to allo
         [string]$ResourceUrl = 'https://api.twitter.com/1.1/followers/list.json'
 
         [hashtable]$Parameters = $PSBoundParameters
-                   $CmdletBindingParameters | % { $Parameters.Remove($_) }
+                   $CmdletBindingParameters | ForEach-Object { $Parameters.Remove($_) }
 
     }
     Process {

@@ -7,7 +7,7 @@ function Send-TwitterTyping_Indicator {
 .DESCRIPTION
     POST direct_messages/indicate_typing
     
-    Displays a visual typing indicator in the recipient’s Direct Message conversation view with the sender. Each request triggers a typing indicator animation with a duration of ~3 seconds.
+    Displays a visual typing indicator in the recipientï¿½s Direct Message conversation view with the sender. Each request triggers a typing indicator animation with a duration of ~3 seconds.
     
     Usage
     
@@ -40,7 +40,7 @@ function Send-TwitterTyping_Indicator {
         [string]$ResourceUrl = 'https://api.twitter.com/1.1/direct_messages/indicate_typing.json'
 
         [hashtable]$Parameters = $PSBoundParameters
-                   $CmdletBindingParameters | % { $Parameters.Remove($_) }
+                   $CmdletBindingParameters | ForEach-Object { $Parameters.Remove($_) }
 
     }
     Process {

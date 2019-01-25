@@ -36,7 +36,7 @@ function Send-TwitterUsers_ReportSpam {
         [string]$ResourceUrl = 'https://api.twitter.com/1.1/users/report_spam.json'
 
         [hashtable]$Parameters = $PSBoundParameters
-                   $CmdletBindingParameters | % { $Parameters.Remove($_) }
+                   $CmdletBindingParameters | ForEach-Object { $Parameters.Remove($_) }
 
     }
     Process {

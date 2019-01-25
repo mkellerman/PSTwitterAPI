@@ -32,7 +32,7 @@ function Get-TwitterWelcome_Message_Rules {
         [string]$ResourceUrl = 'https://api.twitter.com/1.1/direct_messages/welcome_messages/rules/list.json'
 
         [hashtable]$Parameters = $PSBoundParameters
-                   $CmdletBindingParameters | % { $Parameters.Remove($_) }
+                   $CmdletBindingParameters | ForEach-Object { $Parameters.Remove($_) }
 
     }
     Process {

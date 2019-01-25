@@ -50,7 +50,7 @@ function Send-TwitterLists_Members_CreateAll {
         [string]$ResourceUrl = 'https://api.twitter.com/1.1/lists/members/create_all.json'
 
         [hashtable]$Parameters = $PSBoundParameters
-                   $CmdletBindingParameters | % { $Parameters.Remove($_) }
+                   $CmdletBindingParameters | ForEach-Object { $Parameters.Remove($_) }
 
     }
     Process {

@@ -7,7 +7,7 @@ function Send-TwitterRead_Receipt {
 .DESCRIPTION
     POST direct_messages/mark_read
     
-    Marks a message as read in the recipient’s Direct Message conversation view with the sender.
+    Marks a message as read in the recipientï¿½s Direct Message conversation view with the sender.
 
 .PARAMETER last_read_event_id (required)
     
@@ -40,7 +40,7 @@ function Send-TwitterRead_Receipt {
         [string]$ResourceUrl = 'https://api.twitter.com/1.1/direct_messages/mark_read.json'
 
         [hashtable]$Parameters = $PSBoundParameters
-                   $CmdletBindingParameters | % { $Parameters.Remove($_) }
+                   $CmdletBindingParameters | ForEach-Object { $Parameters.Remove($_) }
 
     }
     Process {

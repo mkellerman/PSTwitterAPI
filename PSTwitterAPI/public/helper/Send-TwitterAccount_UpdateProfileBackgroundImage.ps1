@@ -48,7 +48,7 @@ function Send-TwitterAccount_UpdateProfileBackgroundImage {
         [string]$ResourceUrl = 'https://api.twitter.com/1.1/account/update_profile_background_image.json'
 
         [hashtable]$Parameters = $PSBoundParameters
-                   $CmdletBindingParameters | % { $Parameters.Remove($_) }
+                   $CmdletBindingParameters | ForEach-Object { $Parameters.Remove($_) }
 
     }
     Process {

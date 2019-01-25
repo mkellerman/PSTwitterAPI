@@ -39,7 +39,7 @@ function Send-TwitterStatuses_Unretweet_Id {
         [string]$ResourceUrl = 'https://api.twitter.com/1.1/statuses/unretweet/:id.json'
 
         [hashtable]$Parameters = $PSBoundParameters
-                   $CmdletBindingParameters | % { $Parameters.Remove($_) }
+                   $CmdletBindingParameters | ForEach-Object { $Parameters.Remove($_) }
 
     }
     Process {

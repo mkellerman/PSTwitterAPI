@@ -24,7 +24,7 @@ function Get-TwitterApplication_RateLimitStatus {
             $Resource = "application/rate_limit_status"
     
             [hashtable]$Parameters    = $PSBoundParameters
-                        $CmdletBindingParameters | % { $Parameters.Remove($_) }
+                        $CmdletBindingParameters | ForEach-Object { $Parameters.Remove($_) }
                         $Parameters.Remove('OAuthSettings')
     
         }

@@ -42,7 +42,7 @@ $($HelpParameters -Join "`r`n")
         [string]`$ResourceUrl = '$($ApiResource.ReferenceProperties.ResourceUrl)'
 
         [hashtable]`$Parameters = `$PSBoundParameters
-                   `$CmdletBindingParameters | % { `$Parameters.Remove(`$_) }
+                   `$CmdletBindingParameters | ForEach-Object { `$Parameters.Remove(`$_) }
 
     }
     Process {

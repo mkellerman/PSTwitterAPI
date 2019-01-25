@@ -63,7 +63,7 @@ function Send-TwitterMedia_Upload_Append {
         [string]$ResourceUrl = 'https://upload.twitter.com/1.1/media/upload.json'
 
         [hashtable]$Parameters = $PSBoundParameters
-                   $CmdletBindingParameters | % { $Parameters.Remove($_) }
+                   $CmdletBindingParameters | ForEach-Object { $Parameters.Remove($_) }
 
     }
     Process {

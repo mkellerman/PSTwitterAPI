@@ -48,7 +48,7 @@ function Get-TwitterStatuses_RetweetsOfMe {
         [string]$ResourceUrl = 'https://api.twitter.com/1.1/statuses/retweets_of_me.json'
 
         [hashtable]$Parameters = $PSBoundParameters
-                   $CmdletBindingParameters | % { $Parameters.Remove($_) }
+                   $CmdletBindingParameters | ForEach-Object { $Parameters.Remove($_) }
 
     }
     Process {
