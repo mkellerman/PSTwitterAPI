@@ -51,7 +51,7 @@ function Get-TwitterLists_Members {
         [string]$owner_id,
         [string]$count,
         [string]$cursor,
-        [string]$The response from the API will include a previous_cursor and next_cursor to allow paging back and forth. See Using cursors to navigate collections for more information.,
+        [string]$The,
         [string]$include_entities,
         [string]$skip_status
     )

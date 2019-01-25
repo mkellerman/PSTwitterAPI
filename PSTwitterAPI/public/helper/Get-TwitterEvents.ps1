@@ -22,8 +22,8 @@ function Get-TwitterEvents {
 #>
     [CmdletBinding()]
     Param(
-        [string]$count (optional),
-        [string]$cursor (optional)
+        [string]$count,
+        [string]$cursor
     )
     Begin {
 

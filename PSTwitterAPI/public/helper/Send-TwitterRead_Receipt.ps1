@@ -28,8 +28,8 @@ function Send-TwitterRead_Receipt {
 #>
     [CmdletBinding()]
     Param(
-        [string]$last_read_event_id (required),
-        [string]$recipient_id (required),
+        [string]$last_read_event_id,
+        [string]$recipient_id,
         [string]$204,
         [string]$400
     )

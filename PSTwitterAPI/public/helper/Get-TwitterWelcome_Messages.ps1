@@ -22,8 +22,8 @@ function Get-TwitterWelcome_Messages {
 #>
     [CmdletBinding()]
     Param(
-        [string]$count (optional),
-        [string]$cursor (optional)
+        [string]$count,
+        [string]$cursor
     )
     Begin {
 

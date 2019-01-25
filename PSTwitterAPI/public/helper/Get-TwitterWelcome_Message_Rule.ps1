@@ -19,7 +19,7 @@ function Get-TwitterWelcome_Message_Rule {
 #>
     [CmdletBinding()]
     Param(
-        [string]$id (required)
+        [string]$id
     )
     Begin {
 

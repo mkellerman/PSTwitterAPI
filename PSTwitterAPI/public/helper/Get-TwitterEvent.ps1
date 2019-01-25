@@ -19,7 +19,7 @@ function Get-TwitterEvent {
 #>
     [CmdletBinding()]
     Param(
-        [string]$id (required)
+        [string]$id
     )
     Begin {
 

@@ -29,7 +29,7 @@ function Send-TwitterTyping_Indicator {
 #>
     [CmdletBinding()]
     Param(
-        [string]$recipient_id (required),
+        [string]$recipient_id,
         [string]$204,
         [string]$400
     )
