@@ -1,7 +1,6 @@
-
 *.dat
+*.log
+.vscode/
 output/
 testresults/
-*.log
 APIHelper/helper/
-.vscode/settings.json
