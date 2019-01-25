@@ -1,5 +1,4 @@
 ﻿function Send-TwitterSavedSearches_Create {
-
 <#
 .SYNOPSIS
     Manage account settings and profile
@@ -23,12 +22,12 @@
     )
     Begin {
 
+        [hashtable]$Parameters = $PSBoundParameters
+                   $CmdletBindingParameters | ForEach-Object { $Parameters.Remove($_) }
+
         [string]$Method      = 'POST'
         [string]$Resource    = '/saved_searches/create'
         [string]$ResourceUrl = 'https://api.twitter.com/1.1/saved_searches/create.json'
-
-        [hashtable]$Parameters = $PSBoundParameters
-                   $CmdletBindingParameters | ForEach-Object { $Parameters.Remove($_) }
 
     }
     Process {

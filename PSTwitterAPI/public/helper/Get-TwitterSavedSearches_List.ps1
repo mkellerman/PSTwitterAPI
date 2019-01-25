@@ -1,5 +1,4 @@
 ﻿function Get-TwitterSavedSearches_List {
-
 <#
 .SYNOPSIS
     Manage account settings and profile
@@ -21,12 +20,12 @@
     )
     Begin {
 
+        [hashtable]$Parameters = $PSBoundParameters
+                   $CmdletBindingParameters | ForEach-Object { $Parameters.Remove($_) }
+
         [string]$Method      = 'GET'
         [string]$Resource    = '/saved_searches/list'
         [string]$ResourceUrl = 'https://api.twitter.com/1.1/saved_searches/list.json'
-
-        [hashtable]$Parameters = $PSBoundParameters
-                   $CmdletBindingParameters | ForEach-Object { $Parameters.Remove($_) }
 
     }
     Process {

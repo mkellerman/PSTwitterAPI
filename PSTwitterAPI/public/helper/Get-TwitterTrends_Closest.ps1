@@ -1,5 +1,4 @@
 ﻿function Get-TwitterTrends_Closest {
-
 <#
 .SYNOPSIS
     Get locations with trending topics
@@ -31,12 +30,12 @@
     )
     Begin {
 
+        [hashtable]$Parameters = $PSBoundParameters
+                   $CmdletBindingParameters | ForEach-Object { $Parameters.Remove($_) }
+
         [string]$Method      = 'GET'
         [string]$Resource    = '/trends/closest'
         [string]$ResourceUrl = 'https://api.twitter.com/1.1/trends/closest.json'
-
-        [hashtable]$Parameters = $PSBoundParameters
-                   $CmdletBindingParameters | ForEach-Object { $Parameters.Remove($_) }
 
     }
     Process {

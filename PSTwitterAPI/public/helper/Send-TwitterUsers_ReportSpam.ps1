@@ -1,5 +1,4 @@
 ﻿function Send-TwitterUsers_ReportSpam {
-
 <#
 .SYNOPSIS
     Mute, block and report users
@@ -31,12 +30,12 @@
     )
     Begin {
 
+        [hashtable]$Parameters = $PSBoundParameters
+                   $CmdletBindingParameters | ForEach-Object { $Parameters.Remove($_) }
+
         [string]$Method      = 'POST'
         [string]$Resource    = '/users/report_spam'
         [string]$ResourceUrl = 'https://api.twitter.com/1.1/users/report_spam.json'
-
-        [hashtable]$Parameters = $PSBoundParameters
-                   $CmdletBindingParameters | ForEach-Object { $Parameters.Remove($_) }
 
     }
     Process {

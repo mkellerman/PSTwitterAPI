@@ -1,5 +1,4 @@
 ﻿function Get-TwitterAccount_VerifyCredentials {
-
 <#
 .SYNOPSIS
     Manage account settings and profile
@@ -39,12 +38,12 @@
     )
     Begin {
 
+        [hashtable]$Parameters = $PSBoundParameters
+                   $CmdletBindingParameters | ForEach-Object { $Parameters.Remove($_) }
+
         [string]$Method      = 'GET'
         [string]$Resource    = '/account/verify_credentials'
         [string]$ResourceUrl = 'https://api.twitter.com/1.1/account/verify_credentials.json'
-
-        [hashtable]$Parameters = $PSBoundParameters
-                   $CmdletBindingParameters | ForEach-Object { $Parameters.Remove($_) }
 
     }
     Process {

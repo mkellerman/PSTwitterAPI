@@ -1,5 +1,4 @@
 ﻿function Send-TwitterStatuses_Retweet_Id {
-
 <#
 .SYNOPSIS
     Post, retrieve and engage with Tweets
@@ -33,12 +32,12 @@
     )
     Begin {
 
+        [hashtable]$Parameters = $PSBoundParameters
+                   $CmdletBindingParameters | ForEach-Object { $Parameters.Remove($_) }
+
         [string]$Method      = 'POST'
         [string]$Resource    = '/statuses/retweet/:id'
         [string]$ResourceUrl = 'https://api.twitter.com/1.1/statuses/retweet/:id.json'
-
-        [hashtable]$Parameters = $PSBoundParameters
-                   $CmdletBindingParameters | ForEach-Object { $Parameters.Remove($_) }
 
     }
     Process {

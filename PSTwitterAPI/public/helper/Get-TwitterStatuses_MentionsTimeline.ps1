@@ -1,5 +1,4 @@
 ﻿function Get-TwitterStatuses_MentionsTimeline {
-
 <#
 .SYNOPSIS
     Get Tweet timelines
@@ -45,12 +44,12 @@
     )
     Begin {
 
+        [hashtable]$Parameters = $PSBoundParameters
+                   $CmdletBindingParameters | ForEach-Object { $Parameters.Remove($_) }
+
         [string]$Method      = 'GET'
         [string]$Resource    = '/statuses/mentions_timeline'
         [string]$ResourceUrl = 'https://api.twitter.com/1.1/statuses/mentions_timeline.json'
-
-        [hashtable]$Parameters = $PSBoundParameters
-                   $CmdletBindingParameters | ForEach-Object { $Parameters.Remove($_) }
 
     }
     Process {

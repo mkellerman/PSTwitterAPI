@@ -1,5 +1,4 @@
 ﻿function Send-TwitterLists_Update {
-
 <#
 .SYNOPSIS
     Create and manage lists
@@ -43,12 +42,12 @@
     )
     Begin {
 
+        [hashtable]$Parameters = $PSBoundParameters
+                   $CmdletBindingParameters | ForEach-Object { $Parameters.Remove($_) }
+
         [string]$Method      = 'POST'
         [string]$Resource    = '/lists/update'
         [string]$ResourceUrl = 'https://api.twitter.com/1.1/lists/update.json'
-
-        [hashtable]$Parameters = $PSBoundParameters
-                   $CmdletBindingParameters | ForEach-Object { $Parameters.Remove($_) }
 
     }
     Process {

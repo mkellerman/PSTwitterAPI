@@ -1,5 +1,4 @@
 ﻿function Get-TwitterGeo_Id_PlaceId {
-
 <#
 .SYNOPSIS
     Get information about a place
@@ -23,12 +22,12 @@
     )
     Begin {
 
+        [hashtable]$Parameters = $PSBoundParameters
+                   $CmdletBindingParameters | ForEach-Object { $Parameters.Remove($_) }
+
         [string]$Method      = 'GET'
         [string]$Resource    = '/geo/id/:place_id'
         [string]$ResourceUrl = 'https://api.twitter.com/1.1/geo/id/:place_id.json'
-
-        [hashtable]$Parameters = $PSBoundParameters
-                   $CmdletBindingParameters | ForEach-Object { $Parameters.Remove($_) }
 
     }
     Process {

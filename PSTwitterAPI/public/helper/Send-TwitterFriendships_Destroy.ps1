@@ -1,5 +1,4 @@
 ﻿function Send-TwitterFriendships_Destroy {
-
 <#
 .SYNOPSIS
     Follow, search, and get users
@@ -31,12 +30,12 @@
     )
     Begin {
 
+        [hashtable]$Parameters = $PSBoundParameters
+                   $CmdletBindingParameters | ForEach-Object { $Parameters.Remove($_) }
+
         [string]$Method      = 'POST'
         [string]$Resource    = '/friendships/destroy'
         [string]$ResourceUrl = 'https://api.twitter.com/1.1/friendships/destroy.json'
-
-        [hashtable]$Parameters = $PSBoundParameters
-                   $CmdletBindingParameters | ForEach-Object { $Parameters.Remove($_) }
 
     }
     Process {

@@ -1,5 +1,4 @@
 ﻿function Get-TwitterLists_Statuses {
-
 <#
 .SYNOPSIS
     Create and manage lists
@@ -57,12 +56,12 @@
     )
     Begin {
 
+        [hashtable]$Parameters = $PSBoundParameters
+                   $CmdletBindingParameters | ForEach-Object { $Parameters.Remove($_) }
+
         [string]$Method      = 'GET'
         [string]$Resource    = '/lists/statuses'
         [string]$ResourceUrl = 'https://api.twitter.com/1.1/lists/statuses.json'
-
-        [hashtable]$Parameters = $PSBoundParameters
-                   $CmdletBindingParameters | ForEach-Object { $Parameters.Remove($_) }
 
     }
     Process {

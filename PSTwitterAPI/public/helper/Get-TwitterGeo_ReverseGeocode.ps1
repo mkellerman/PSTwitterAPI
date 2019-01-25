@@ -1,5 +1,4 @@
 ﻿function Get-TwitterGeo_ReverseGeocode {
-
 <#
 .SYNOPSIS
     Get places near a location
@@ -42,12 +41,12 @@ Setting this to city, for example, will find places which have a type of city, a
     )
     Begin {
 
+        [hashtable]$Parameters = $PSBoundParameters
+                   $CmdletBindingParameters | ForEach-Object { $Parameters.Remove($_) }
+
         [string]$Method      = 'GET'
         [string]$Resource    = '/geo/reverse_geocode'
         [string]$ResourceUrl = 'https://api.twitter.com/1.1/geo/reverse_geocode.json'
-
-        [hashtable]$Parameters = $PSBoundParameters
-                   $CmdletBindingParameters | ForEach-Object { $Parameters.Remove($_) }
 
     }
     Process {

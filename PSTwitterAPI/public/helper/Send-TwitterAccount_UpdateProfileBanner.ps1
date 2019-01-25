@@ -1,5 +1,4 @@
 ﻿function Send-TwitterAccount_UpdateProfileBanner {
-
 <#
 .SYNOPSIS
     Manage account settings and profile
@@ -48,12 +47,12 @@
     )
     Begin {
 
+        [hashtable]$Parameters = $PSBoundParameters
+                   $CmdletBindingParameters | ForEach-Object { $Parameters.Remove($_) }
+
         [string]$Method      = 'POST'
         [string]$Resource    = '/account/update_profile_banner'
         [string]$ResourceUrl = 'https://api.twitter.com/1.1/account/update_profile_banner.json'
-
-        [hashtable]$Parameters = $PSBoundParameters
-                   $CmdletBindingParameters | ForEach-Object { $Parameters.Remove($_) }
 
     }
     Process {

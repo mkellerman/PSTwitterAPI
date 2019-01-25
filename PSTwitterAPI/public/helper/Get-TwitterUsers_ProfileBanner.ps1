@@ -1,5 +1,4 @@
 ﻿function Get-TwitterUsers_ProfileBanner {
-
 <#
 .SYNOPSIS
     Manage account settings and profile
@@ -29,12 +28,12 @@
     )
     Begin {
 
+        [hashtable]$Parameters = $PSBoundParameters
+                   $CmdletBindingParameters | ForEach-Object { $Parameters.Remove($_) }
+
         [string]$Method      = 'GET'
         [string]$Resource    = '/users/profile_banner'
         [string]$ResourceUrl = 'https://api.twitter.com/1.1/users/profile_banner.json'
-
-        [hashtable]$Parameters = $PSBoundParameters
-                   $CmdletBindingParameters | ForEach-Object { $Parameters.Remove($_) }
 
     }
     Process {

@@ -1,5 +1,4 @@
 ﻿function Get-TwitterStatuses_HomeTimeline {
-
 <#
 .SYNOPSIS
     Get Tweet timelines
@@ -47,12 +46,12 @@
     )
     Begin {
 
+        [hashtable]$Parameters = $PSBoundParameters
+                   $CmdletBindingParameters | ForEach-Object { $Parameters.Remove($_) }
+
         [string]$Method      = 'GET'
         [string]$Resource    = '/statuses/home_timeline'
         [string]$ResourceUrl = 'https://api.twitter.com/1.1/statuses/home_timeline.json'
-
-        [hashtable]$Parameters = $PSBoundParameters
-                   $CmdletBindingParameters | ForEach-Object { $Parameters.Remove($_) }
 
     }
     Process {

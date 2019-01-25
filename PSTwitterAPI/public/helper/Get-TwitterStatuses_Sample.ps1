@@ -1,5 +1,4 @@
 ﻿function Get-TwitterStatuses_Sample {
-
 <#
 .SYNOPSIS
     Sample realtime Tweets
@@ -27,12 +26,12 @@
     )
     Begin {
 
+        [hashtable]$Parameters = $PSBoundParameters
+                   $CmdletBindingParameters | ForEach-Object { $Parameters.Remove($_) }
+
         [string]$Method      = 'GET'
         [string]$Resource    = '/statuses/sample'
         [string]$ResourceUrl = 'https://stream.twitter.com/1.1/statuses/sample.json'
-
-        [hashtable]$Parameters = $PSBoundParameters
-                   $CmdletBindingParameters | ForEach-Object { $Parameters.Remove($_) }
 
     }
     Process {

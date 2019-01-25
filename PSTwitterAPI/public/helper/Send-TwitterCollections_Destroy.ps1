@@ -1,5 +1,4 @@
 ﻿function Send-TwitterCollections_Destroy {
-
 <#
 .SYNOPSIS
     Curate a collection of Tweets
@@ -23,12 +22,12 @@
     )
     Begin {
 
+        [hashtable]$Parameters = $PSBoundParameters
+                   $CmdletBindingParameters | ForEach-Object { $Parameters.Remove($_) }
+
         [string]$Method      = 'POST'
         [string]$Resource    = '/collections/destroy'
         [string]$ResourceUrl = 'https://api.twitter.com/1.1/collections/destroy.json'
-
-        [hashtable]$Parameters = $PSBoundParameters
-                   $CmdletBindingParameters | ForEach-Object { $Parameters.Remove($_) }
 
     }
     Process {

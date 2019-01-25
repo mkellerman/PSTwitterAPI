@@ -1,5 +1,4 @@
 ﻿function Send-TwitterBlocks_Destroy {
-
 <#
 .SYNOPSIS
     Mute, block and report users
@@ -35,12 +34,12 @@
     )
     Begin {
 
+        [hashtable]$Parameters = $PSBoundParameters
+                   $CmdletBindingParameters | ForEach-Object { $Parameters.Remove($_) }
+
         [string]$Method      = 'POST'
         [string]$Resource    = '/blocks/destroy'
         [string]$ResourceUrl = 'POST https://api.twitter.com/1.1/blocks/destroy.json'
-
-        [hashtable]$Parameters = $PSBoundParameters
-                   $CmdletBindingParameters | ForEach-Object { $Parameters.Remove($_) }
 
     }
     Process {

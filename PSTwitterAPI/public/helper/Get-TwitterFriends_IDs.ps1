@@ -1,5 +1,4 @@
 ﻿function Get-TwitterFriends_Ids {
-
 <#
 .SYNOPSIS
     Follow, search, and get users
@@ -44,12 +43,12 @@ The response from the API will include a previous_cursor and next_cursor to allo
     )
     Begin {
 
+        [hashtable]$Parameters = $PSBoundParameters
+                   $CmdletBindingParameters | ForEach-Object { $Parameters.Remove($_) }
+
         [string]$Method      = 'GET'
         [string]$Resource    = '/friends/ids'
         [string]$ResourceUrl = 'https://api.twitter.com/1.1/friends/ids.json'
-
-        [hashtable]$Parameters = $PSBoundParameters
-                   $CmdletBindingParameters | ForEach-Object { $Parameters.Remove($_) }
 
     }
     Process {

@@ -1,5 +1,4 @@
 ﻿function Get-TwitterUsers_Search {
-
 <#
 .SYNOPSIS
     Follow, search, and get users
@@ -37,12 +36,12 @@
     )
     Begin {
 
+        [hashtable]$Parameters = $PSBoundParameters
+                   $CmdletBindingParameters | ForEach-Object { $Parameters.Remove($_) }
+
         [string]$Method      = 'GET'
         [string]$Resource    = '/users/search'
         [string]$ResourceUrl = 'https://api.twitter.com/1.1/users/search.json'
-
-        [hashtable]$Parameters = $PSBoundParameters
-                   $CmdletBindingParameters | ForEach-Object { $Parameters.Remove($_) }
 
     }
     Process {

@@ -1,5 +1,4 @@
 ﻿function Get-TwitterTrends_Place {
-
 <#
 .SYNOPSIS
     Get trends near a location
@@ -33,12 +32,12 @@
     )
     Begin {
 
+        [hashtable]$Parameters = $PSBoundParameters
+                   $CmdletBindingParameters | ForEach-Object { $Parameters.Remove($_) }
+
         [string]$Method      = 'GET'
         [string]$Resource    = '/trends/place'
         [string]$ResourceUrl = 'https://api.twitter.com/1.1/trends/place.json'
-
-        [hashtable]$Parameters = $PSBoundParameters
-                   $CmdletBindingParameters | ForEach-Object { $Parameters.Remove($_) }
 
     }
     Process {

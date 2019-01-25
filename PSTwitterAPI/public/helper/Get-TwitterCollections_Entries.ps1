@@ -1,5 +1,4 @@
 ﻿function Get-TwitterCollections_Entries {
-
 <#
 .SYNOPSIS
     Curate a collection of Tweets
@@ -39,12 +38,12 @@
     )
     Begin {
 
+        [hashtable]$Parameters = $PSBoundParameters
+                   $CmdletBindingParameters | ForEach-Object { $Parameters.Remove($_) }
+
         [string]$Method      = 'GET'
         [string]$Resource    = '/collections/entries'
         [string]$ResourceUrl = 'https://api.twitter.com/1.1/collections/entries.json'
-
-        [hashtable]$Parameters = $PSBoundParameters
-                   $CmdletBindingParameters | ForEach-Object { $Parameters.Remove($_) }
 
     }
     Process {

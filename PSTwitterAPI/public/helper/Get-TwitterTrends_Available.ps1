@@ -1,5 +1,4 @@
 ﻿function Get-TwitterTrends_Available {
-
 <#
 .SYNOPSIS
     Get locations with trending topics
@@ -25,12 +24,12 @@
     )
     Begin {
 
+        [hashtable]$Parameters = $PSBoundParameters
+                   $CmdletBindingParameters | ForEach-Object { $Parameters.Remove($_) }
+
         [string]$Method      = 'GET'
         [string]$Resource    = '/trends/available'
         [string]$ResourceUrl = 'https://api.twitter.com/1.1/trends/available.json'
-
-        [hashtable]$Parameters = $PSBoundParameters
-                   $CmdletBindingParameters | ForEach-Object { $Parameters.Remove($_) }
 
     }
     Process {

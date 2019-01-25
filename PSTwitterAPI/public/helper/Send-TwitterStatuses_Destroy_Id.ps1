@@ -1,5 +1,4 @@
 ﻿function Send-TwitterStatuses_Destroy_Id {
-
 <#
 .SYNOPSIS
     Post, retrieve and engage with Tweets
@@ -27,12 +26,12 @@
     )
     Begin {
 
+        [hashtable]$Parameters = $PSBoundParameters
+                   $CmdletBindingParameters | ForEach-Object { $Parameters.Remove($_) }
+
         [string]$Method      = 'POST'
         [string]$Resource    = '/statuses/destroy/:id'
         [string]$ResourceUrl = 'https://api.twitter.com/1.1/statuses/destroy/:id.json'
-
-        [hashtable]$Parameters = $PSBoundParameters
-                   $CmdletBindingParameters | ForEach-Object { $Parameters.Remove($_) }
 
     }
     Process {

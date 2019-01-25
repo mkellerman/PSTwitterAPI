@@ -1,5 +1,4 @@
 ﻿function Send-TwitterStatuses_UpdateWithMedia {
-
 <#
 .SYNOPSIS
     Post, retrieve and engage with Tweets
@@ -41,12 +40,12 @@
     )
     Begin {
 
+        [hashtable]$Parameters = $PSBoundParameters
+                   $CmdletBindingParameters | ForEach-Object { $Parameters.Remove($_) }
+
         [string]$Method      = 'POST'
         [string]$Resource    = '/statuses/update_with_media'
         [string]$ResourceUrl = 'https://api.twitter.com/1.1/statuses/update_with_media.json'
-
-        [hashtable]$Parameters = $PSBoundParameters
-                   $CmdletBindingParameters | ForEach-Object { $Parameters.Remove($_) }
 
     }
     Process {

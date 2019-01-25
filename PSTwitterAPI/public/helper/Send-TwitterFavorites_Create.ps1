@@ -1,5 +1,4 @@
 ﻿function Send-TwitterFavorites_Create {
-
 <#
 .SYNOPSIS
     Post, retrieve and engage with Tweets
@@ -31,12 +30,12 @@
     )
     Begin {
 
+        [hashtable]$Parameters = $PSBoundParameters
+                   $CmdletBindingParameters | ForEach-Object { $Parameters.Remove($_) }
+
         [string]$Method      = 'POST'
         [string]$Resource    = '/favorites/create'
         [string]$ResourceUrl = 'https://api.twitter.com/1.1/favorites/create.json'
-
-        [hashtable]$Parameters = $PSBoundParameters
-                   $CmdletBindingParameters | ForEach-Object { $Parameters.Remove($_) }
 
     }
     Process {

@@ -1,5 +1,4 @@
 ﻿function Send-TwitterLists_Destroy {
-
 <#
 .SYNOPSIS
     Create and manage lists
@@ -35,12 +34,12 @@
     )
     Begin {
 
+        [hashtable]$Parameters = $PSBoundParameters
+                   $CmdletBindingParameters | ForEach-Object { $Parameters.Remove($_) }
+
         [string]$Method      = 'POST'
         [string]$Resource    = '/lists/destroy'
         [string]$ResourceUrl = 'https://api.twitter.com/1.1/lists/destroy.json'
-
-        [hashtable]$Parameters = $PSBoundParameters
-                   $CmdletBindingParameters | ForEach-Object { $Parameters.Remove($_) }
 
     }
     Process {

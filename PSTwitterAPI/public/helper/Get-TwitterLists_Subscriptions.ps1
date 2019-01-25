@@ -1,5 +1,4 @@
 ﻿function Get-TwitterLists_Subscriptions {
-
 <#
 .SYNOPSIS
     Create and manage lists
@@ -35,12 +34,12 @@
     )
     Begin {
 
+        [hashtable]$Parameters = $PSBoundParameters
+                   $CmdletBindingParameters | ForEach-Object { $Parameters.Remove($_) }
+
         [string]$Method      = 'GET'
         [string]$Resource    = '/lists/subscriptions'
         [string]$ResourceUrl = 'https://api.twitter.com/1.1/lists/subscriptions.json'
-
-        [hashtable]$Parameters = $PSBoundParameters
-                   $CmdletBindingParameters | ForEach-Object { $Parameters.Remove($_) }
 
     }
     Process {

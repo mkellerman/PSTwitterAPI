@@ -1,5 +1,4 @@
 ﻿function Send-TwitterCollections_Create {
-
 <#
 .SYNOPSIS
     Curate a collection of Tweets
@@ -33,12 +32,12 @@
     )
     Begin {
 
+        [hashtable]$Parameters = $PSBoundParameters
+                   $CmdletBindingParameters | ForEach-Object { $Parameters.Remove($_) }
+
         [string]$Method      = 'POST'
         [string]$Resource    = '/collections/create'
         [string]$ResourceUrl = 'https://api.twitter.com/1.1/collections/create.json'
-
-        [hashtable]$Parameters = $PSBoundParameters
-                   $CmdletBindingParameters | ForEach-Object { $Parameters.Remove($_) }
 
     }
     Process {

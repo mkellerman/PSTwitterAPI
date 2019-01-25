@@ -1,5 +1,4 @@
 ﻿function Get-TwitterLists_Show {
-
 <#
 .SYNOPSIS
     Create and manage lists
@@ -35,12 +34,12 @@
     )
     Begin {
 
+        [hashtable]$Parameters = $PSBoundParameters
+                   $CmdletBindingParameters | ForEach-Object { $Parameters.Remove($_) }
+
         [string]$Method      = 'GET'
         [string]$Resource    = '/lists/show'
         [string]$ResourceUrl = 'https://api.twitter.com/1.1/lists/show.json'
-
-        [hashtable]$Parameters = $PSBoundParameters
-                   $CmdletBindingParameters | ForEach-Object { $Parameters.Remove($_) }
 
     }
     Process {

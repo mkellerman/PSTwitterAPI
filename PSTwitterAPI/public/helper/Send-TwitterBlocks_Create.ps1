@@ -1,5 +1,4 @@
 ﻿function Send-TwitterBlocks_Create {
-
 <#
 .SYNOPSIS
     Mute, block and report users
@@ -37,12 +36,12 @@
     )
     Begin {
 
+        [hashtable]$Parameters = $PSBoundParameters
+                   $CmdletBindingParameters | ForEach-Object { $Parameters.Remove($_) }
+
         [string]$Method      = 'POST'
         [string]$Resource    = '/blocks/create'
         [string]$ResourceUrl = 'https://api.twitter.com/1.1/blocks/create.json'
-
-        [hashtable]$Parameters = $PSBoundParameters
-                   $CmdletBindingParameters | ForEach-Object { $Parameters.Remove($_) }
 
     }
     Process {

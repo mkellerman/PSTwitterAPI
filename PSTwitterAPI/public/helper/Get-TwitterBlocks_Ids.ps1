@@ -1,5 +1,4 @@
 ﻿function Get-TwitterBlocks_Ids {
-
 <#
 .SYNOPSIS
     Mute, block and report users
@@ -30,12 +29,12 @@ The response from the API will include a previous_cursor and next_cursor to allo
     )
     Begin {
 
+        [hashtable]$Parameters = $PSBoundParameters
+                   $CmdletBindingParameters | ForEach-Object { $Parameters.Remove($_) }
+
         [string]$Method      = 'GET'
         [string]$Resource    = '/blocks/ids'
         [string]$ResourceUrl = 'https://api.twitter.com/1.1/blocks/ids.json'
-
-        [hashtable]$Parameters = $PSBoundParameters
-                   $CmdletBindingParameters | ForEach-Object { $Parameters.Remove($_) }
 
     }
     Process {

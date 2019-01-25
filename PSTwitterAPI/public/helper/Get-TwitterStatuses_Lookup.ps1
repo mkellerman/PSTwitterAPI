@@ -1,5 +1,4 @@
 ﻿function Get-TwitterStatuses_Lookup {
-
 <#
 .SYNOPSIS
     Post, retrieve and engage with Tweets
@@ -55,12 +54,12 @@
     )
     Begin {
 
+        [hashtable]$Parameters = $PSBoundParameters
+                   $CmdletBindingParameters | ForEach-Object { $Parameters.Remove($_) }
+
         [string]$Method      = 'GET'
         [string]$Resource    = '/statuses/lookup'
         [string]$ResourceUrl = 'https://api.twitter.com/1.1/statuses/lookup.json'
-
-        [hashtable]$Parameters = $PSBoundParameters
-                   $CmdletBindingParameters | ForEach-Object { $Parameters.Remove($_) }
 
     }
     Process {
