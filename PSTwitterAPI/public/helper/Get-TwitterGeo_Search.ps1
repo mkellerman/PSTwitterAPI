@@ -72,8 +72,15 @@ Specify a place_id. For example, to scope all results to places within "San Fran
     }
     Process {
 
+        # Find & Replace any ResourceUrl parameters.
+        $UrlParameters = [regex]::Matches($ResourceUrl, '(?<!\w):\w+')
+        ForEach ($UrlParameter in $UrlParameters) {
+            $UrlParameterValue = $Parameters["$($UrlParameter.Value.TrimStart(":"))"]
+            $ResourceUrl = $ResourceUrl -Replace $UrlParameter.Value, $UrlParameterValue
+        }
+
         If (-Not $OAuthSettings) { $OAuthSettings = Get-TwitterOAuthSettings -Resource $Resource }
-        Invoke-TwitterAPI -Method $Method -ResourceUrl $ResourceUrl -Resource $Resource -Parameters $Parameters -OAuthSettings $OAuthSettings
+        Invoke-TwitterAPI -Method $Method -ResourceUrl $ResourceUrl -Parameters $Parameters -OAuthSettings $OAuthSettings
 
     }
     End {
