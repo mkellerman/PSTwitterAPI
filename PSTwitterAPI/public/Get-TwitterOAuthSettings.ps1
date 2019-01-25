@@ -6,11 +6,11 @@ function Get-TwitterOAuthSettings {
     If ($Resource) {
 
         $AccessToken = $Script:OAuthCollection.RateLimitStatus |
-                        Where-Object { $_.resource -eq "/$Resource" } |
-                        Sort-Object @{expression="remaining";Descending=$true}, @{expression="reset";Ascending=$true} |
-                        Select-Object -First 1 -Expand AccessToken
+                       Where-Object { $_.resource -eq "/$Resource" } |
+                       Sort-Object @{expression="remaining";Descending=$true}, @{expression="reset";Ascending=$true} |
+                       Select-Object -First 1 -Expand AccessToken
 
-                    }
+    }
 
     If ($AccessToken) {
 
@@ -34,6 +34,7 @@ function Get-TwitterOAuthSettings {
         Throw "No OAuthSettings was found. Use 'Set-OAuthSettings' to set PSTwitterAPI ApiKey & Token."
     }
 
+    Write-Verbose "Using AccessToken '$($OAuthSettings.AccessToken)'"
     Return $OAuthSettings
 
 }
