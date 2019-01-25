@@ -58,7 +58,7 @@ function Get-OAuthParameters {
             $OAuthString = 'OAuth '
             $OAuthParameters.GetEnumerator() | Sort-Object Name | ForEach-Object { $OAuthString += $_.Key + '="' + [System.Uri]::EscapeDataString($_.Value) + '", ' }
             $OAuthString = $OAuthString.TrimEnd(', ')
-            Write-Verbose "Using authorization string '$TwitOAuthStringterOauthString'"
+            Write-Verbose "Using authorization string '$OAuthString'"
 
             $OAuthParameters.Add('endpoint_url', $EndPointUrl)
             $OAuthParameters.Add('endpoint_method', $Method)
