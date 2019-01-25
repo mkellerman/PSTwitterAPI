@@ -40,13 +40,16 @@ task UpdateManifest {
     # Import PlatyPS. Needed for parsing README for Change Log versions
     #Import-Module -Name PlatyPS
 
-    $ManifestPath = '.\PSTwitterAPI\PSTwitterAPI.psd1'
-    $ModuleManifest = Test-ModuleManifest -Path $ManifestPath
+    $ModuleManifest = Test-ModuleManifest -Path $env:BHPSModuleManifest
     [System.Version]$ManifestVersion = $ModuleManifest.Version
     Write-Output -InputObject ('Manifest Version  : {0}' -f $ManifestVersion)
 
-    $PSGalleryModule = Find-Module -Name PSTwitterAPI -Repository PSGallery
-    [System.Version]$PSGalleryVersion = $PSGalleryModule.Version
+    Try {
+        $PSGalleryModule = Find-Module -Name $env:ProjectName -Repository PSGallery
+        [System.Version]$PSGalleryVersion = $PSGalleryModule.Version
+    } Catch {
+        [System.Version]$PSGalleryVersion = '0.0.0'
+    }
     Write-Output -InputObject ('PSGallery Version : {0}' -f $PSGalleryVersion)
 
     If ($PSGalleryVersion -ge $ManifestVersion) {
@@ -75,8 +78,8 @@ task PublishModule -If ($Configuration -eq 'Production') {
 
             # Build a splat containing the required details and make sure to Stop for errors which will trigger the catch
             $params = @{
-                Path        = ".\PSTwitterAPI"
-                NuGetApiKey = $ENV:NuGetApiKey
+                Path        = $env:BHModulePath
+                NuGetApiKey = $env:NuGetApiKey
                 ErrorAction = 'Stop'
             }
             Publish-Module @params
