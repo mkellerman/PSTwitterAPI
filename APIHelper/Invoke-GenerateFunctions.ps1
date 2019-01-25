@@ -48,13 +48,13 @@ $($HelpParameters -Join "`r`n")
     Process {
 
         If (-Not `$OAuthSettings) { `$OAuthSettings = Get-TwitterOAuthSettings -Resource `$Resource }
-        Invoke-TwitterAPI -Resource `$Resource -Method `$Method -Parameters `$Parameters -OAuthSettings `$OAuthSettings
+        Invoke-TwitterAPI -Method `$Method -ResourceUrl `$ResourceUrl -Resource `$Resource -Parameters `$Parameters -OAuthSettings `$OAuthSettings
 
     }
     End {
 
     }
 }
-"@ | Set-Content ".\helper\${FunctionName}.ps1"
+"@ | Set-Content ".\helper\${FunctionName}.ps1" -Encoding UTF8
 
 }

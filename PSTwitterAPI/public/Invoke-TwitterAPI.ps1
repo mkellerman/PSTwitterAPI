@@ -3,6 +3,8 @@ function Invoke-TwitterAPI {
     [CmdletBinding()]
     Param(
         [Parameter(Mandatory)]
+        [string]$ResourceUrl,
+        [Parameter(Mandatory)]
         [string]$Resource,
         [Parameter(Mandatory)]
         [string]$Method,
@@ -22,7 +24,7 @@ function Invoke-TwitterAPI {
     $OAuthParameters_Params['AccessToken'] = $OAuthSettings.AccessToken
     $OAuthParameters_Params['AccessTokenSecret'] = $OAuthSettings.AccessTokenSecret
     $OAuthParameters_Params['Method'] = $Method
-    $OAuthParameters_Params['Resource'] = $Resource
+    $OAuthParameters_Params['ResourceUrl'] = $ResourceUrl
     $OAuthParameters_Params['Parameters'] = $Parameters
     $OAuthParameters = Get-OAuthParameters @OAuthParameters_Params
 

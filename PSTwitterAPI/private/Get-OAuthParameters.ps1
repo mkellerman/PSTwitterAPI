@@ -1,13 +1,11 @@
 function Get-OAuthParameters {
 
     [OutputType('System.Management.Automation.PSCustomObject')]
-    Param($ApiKey, $ApiSecret, $AccessToken, $AccessTokenSecret, $Method, $Resource, $Parameters)
+    Param($ApiKey, $ApiSecret, $AccessToken, $AccessTokenSecret, $Method, $ResourceUrl, $Parameters)
 
     Process{
 
         Try {
-
-            $BaseUrl = "${EndPointBaseUrl}/${Resource}.${EndPointFileFormat}"
 
             ## Generate a random 32-byte string. I'm using the current time (in seconds) and appending 5 chars to the end to get to 32 bytes
 	        ## Base64 allows for an '=' but Twitter does not.  If this is found, replace it with some alphanumeric character
@@ -22,12 +20,12 @@ function Get-OAuthParameters {
             }
 
             ## Build the enpoint url
-            $EndPointUrl = "${BaseUrl}?"
+            $EndPointUrl = "${ResourceUrl}?"
             $Parameters.GetEnumerator() | Sort-Object Name | ForEach-Object { $EndPointUrl += "$($_.Key)=$($_.Value)&" }
             $EndPointUrl = $EndPointUrl.TrimEnd('&')
 
             ## Build the signature
-            $SignatureBase = "$([System.Uri]::EscapeDataString("${BaseUrl}"))&"
+            $SignatureBase = "$([System.Uri]::EscapeDataString("${ResourceUrl}"))&"
 			$SignatureParams = @{
 				'oauth_consumer_key' = $ApiKey;
 				'oauth_nonce' = $OAuthNonce;

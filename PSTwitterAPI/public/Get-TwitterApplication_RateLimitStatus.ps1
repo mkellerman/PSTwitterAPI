@@ -22,6 +22,7 @@ function Get-TwitterApplication_RateLimitStatus {
     
             $Method   = "GET"
             $Resource = "application/rate_limit_status"
+            $ResourceUrl = "https://api.twitter.com/1.1/application/rate_limit_status.json"
     
             [hashtable]$Parameters    = $PSBoundParameters
                         $CmdletBindingParameters | ForEach-Object { $Parameters.Remove($_) }
@@ -32,7 +33,7 @@ function Get-TwitterApplication_RateLimitStatus {
         Process {
     
             If (-Not $OAuthSettings) { If (-Not $OAuthSettings) { $OAuthSettings = Get-TwitterOAuthSettings -Resource $Resource } }
-            Invoke-TwitterAPI -Resource $Resource -Method $Method -Parameters $Parameters -OAuthSettings $OAuthSettings
+            Invoke-TwitterAPI -Resource $Resource -ResourceUrl $ResourceUrl -Method $Method -Parameters $Parameters -OAuthSettings $OAuthSettings
     
         }
     
