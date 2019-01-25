@@ -26,10 +26,13 @@ function Set-TwitterOAuthSettings {
             AccessTokenSecret = $AccessTokenSecret
         }
 
-        $RateLimitStatus = Get-TwitterApplication_RateLimitStatus -OAuthSettings $OAuthSettings
+        $RateLimitStatus = Get-TwitterApplication_RateLimitStatus
+        If ($RateLimitStatus.rate_limit_context.access_token -ne $AccessToken) { Throw 'RateLimitStatus was returned for the wrong AccessToken.'}
+        
         $OAuthSettings['RateLimitStatus'] = ConvertFrom-RateLimitStatus -RateLimitStatus $RateLimitStatus
 
         [void]$Script:OAuthCollection.Add($OAuthSettings)
+
         If ($PassThru) { $OAuthSettings }
 
     }
