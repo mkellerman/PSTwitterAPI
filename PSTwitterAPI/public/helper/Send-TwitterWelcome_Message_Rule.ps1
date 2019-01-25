@@ -1,4 +1,4 @@
-function Send-TwitterWelcome_Message_Rule {
+﻿function Send-TwitterWelcome_Message_Rule {
 
 <#
 .SYNOPSIS
@@ -38,7 +38,7 @@ function Send-TwitterWelcome_Message_Rule {
     Process {
 
         If (-Not $OAuthSettings) { $OAuthSettings = Get-TwitterOAuthSettings -Resource $Resource }
-        Invoke-TwitterAPI -Resource $Resource -Method $Method -Parameters $Parameters -OAuthSettings $OAuthSettings
+        Invoke-TwitterAPI -Method $Method -ResourceUrl $ResourceUrl -Resource $Resource -Parameters $Parameters -OAuthSettings $OAuthSettings
 
     }
     End {

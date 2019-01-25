@@ -1,4 +1,4 @@
-function Send-TwitterCollections_Entries_Remove {
+﻿function Send-TwitterCollections_Entries_Remove {
 
 <#
 .SYNOPSIS
@@ -40,7 +40,7 @@ function Send-TwitterCollections_Entries_Remove {
     Process {
 
         If (-Not $OAuthSettings) { $OAuthSettings = Get-TwitterOAuthSettings -Resource $Resource }
-        Invoke-TwitterAPI -Resource $Resource -Method $Method -Parameters $Parameters -OAuthSettings $OAuthSettings
+        Invoke-TwitterAPI -Method $Method -ResourceUrl $ResourceUrl -Resource $Resource -Parameters $Parameters -OAuthSettings $OAuthSettings
 
     }
     End {

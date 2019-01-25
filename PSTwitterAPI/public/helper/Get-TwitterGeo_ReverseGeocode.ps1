@@ -1,4 +1,4 @@
-function Get-TwitterGeo_ReverseGeocode {
+﻿function Get-TwitterGeo_ReverseGeocode {
 
 <#
 .SYNOPSIS
@@ -53,7 +53,7 @@ Setting this to city, for example, will find places which have a type of city, a
     Process {
 
         If (-Not $OAuthSettings) { $OAuthSettings = Get-TwitterOAuthSettings -Resource $Resource }
-        Invoke-TwitterAPI -Resource $Resource -Method $Method -Parameters $Parameters -OAuthSettings $OAuthSettings
+        Invoke-TwitterAPI -Method $Method -ResourceUrl $ResourceUrl -Resource $Resource -Parameters $Parameters -OAuthSettings $OAuthSettings
 
     }
     End {

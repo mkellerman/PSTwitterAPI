@@ -1,4 +1,4 @@
-function Send-TwitterMedia_Metadata_Create {
+﻿function Send-TwitterMedia_Metadata_Create {
 
 <#
 .SYNOPSIS
@@ -50,7 +50,7 @@ function Send-TwitterMedia_Metadata_Create {
     Process {
 
         If (-Not $OAuthSettings) { $OAuthSettings = Get-TwitterOAuthSettings -Resource $Resource }
-        Invoke-TwitterAPI -Resource $Resource -Method $Method -Parameters $Parameters -OAuthSettings $OAuthSettings
+        Invoke-TwitterAPI -Method $Method -ResourceUrl $ResourceUrl -Resource $Resource -Parameters $Parameters -OAuthSettings $OAuthSettings
 
     }
     End {

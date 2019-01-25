@@ -1,4 +1,4 @@
-function Send-TwitterAccount_UpdateProfileBackgroundImage {
+﻿function Send-TwitterAccount_UpdateProfileBackgroundImage {
 
 <#
 .SYNOPSIS
@@ -54,7 +54,7 @@ function Send-TwitterAccount_UpdateProfileBackgroundImage {
     Process {
 
         If (-Not $OAuthSettings) { $OAuthSettings = Get-TwitterOAuthSettings -Resource $Resource }
-        Invoke-TwitterAPI -Resource $Resource -Method $Method -Parameters $Parameters -OAuthSettings $OAuthSettings
+        Invoke-TwitterAPI -Method $Method -ResourceUrl $ResourceUrl -Resource $Resource -Parameters $Parameters -OAuthSettings $OAuthSettings
 
     }
     End {

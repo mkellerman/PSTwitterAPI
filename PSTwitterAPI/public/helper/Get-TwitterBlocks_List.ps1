@@ -1,4 +1,4 @@
-function Get-TwitterBlocks_List {
+﻿function Get-TwitterBlocks_List {
 
 <#
 .SYNOPSIS
@@ -45,7 +45,7 @@ The response from the API will include a previous_cursor and next_cursor to allo
     Process {
 
         If (-Not $OAuthSettings) { $OAuthSettings = Get-TwitterOAuthSettings -Resource $Resource }
-        Invoke-TwitterAPI -Resource $Resource -Method $Method -Parameters $Parameters -OAuthSettings $OAuthSettings
+        Invoke-TwitterAPI -Method $Method -ResourceUrl $ResourceUrl -Resource $Resource -Parameters $Parameters -OAuthSettings $OAuthSettings
 
     }
     End {

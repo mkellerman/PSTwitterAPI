@@ -1,4 +1,4 @@
-function Get-TwitterStatuses_Retweeters_Ids {
+﻿function Get-TwitterStatuses_Retweeters_Ids {
 
 <#
 .SYNOPSIS
@@ -50,7 +50,7 @@ While this method supports the cursor parameter, the entire result set can be re
     Process {
 
         If (-Not $OAuthSettings) { $OAuthSettings = Get-TwitterOAuthSettings -Resource $Resource }
-        Invoke-TwitterAPI -Resource $Resource -Method $Method -Parameters $Parameters -OAuthSettings $OAuthSettings
+        Invoke-TwitterAPI -Method $Method -ResourceUrl $ResourceUrl -Resource $Resource -Parameters $Parameters -OAuthSettings $OAuthSettings
 
     }
     End {

@@ -1,4 +1,4 @@
-function Send-TwitterStatuses_UpdateWithMedia {
+﻿function Send-TwitterStatuses_UpdateWithMedia {
 
 <#
 .SYNOPSIS
@@ -52,7 +52,7 @@ function Send-TwitterStatuses_UpdateWithMedia {
     Process {
 
         If (-Not $OAuthSettings) { $OAuthSettings = Get-TwitterOAuthSettings -Resource $Resource }
-        Invoke-TwitterAPI -Resource $Resource -Method $Method -Parameters $Parameters -OAuthSettings $OAuthSettings
+        Invoke-TwitterAPI -Method $Method -ResourceUrl $ResourceUrl -Resource $Resource -Parameters $Parameters -OAuthSettings $OAuthSettings
 
     }
     End {

@@ -1,4 +1,4 @@
-function Get-TwitterSavedSearches_Show_Id {
+﻿function Get-TwitterSavedSearches_Show_Id {
 
 <#
 .SYNOPSIS
@@ -34,7 +34,7 @@ function Get-TwitterSavedSearches_Show_Id {
     Process {
 
         If (-Not $OAuthSettings) { $OAuthSettings = Get-TwitterOAuthSettings -Resource $Resource }
-        Invoke-TwitterAPI -Resource $Resource -Method $Method -Parameters $Parameters -OAuthSettings $OAuthSettings
+        Invoke-TwitterAPI -Method $Method -ResourceUrl $ResourceUrl -Resource $Resource -Parameters $Parameters -OAuthSettings $OAuthSettings
 
     }
     End {

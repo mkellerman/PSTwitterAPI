@@ -1,4 +1,4 @@
-function Get-TwitterFriendships_Show {
+﻿function Get-TwitterFriendships_Show {
 
 <#
 .SYNOPSIS
@@ -46,7 +46,7 @@ function Get-TwitterFriendships_Show {
     Process {
 
         If (-Not $OAuthSettings) { $OAuthSettings = Get-TwitterOAuthSettings -Resource $Resource }
-        Invoke-TwitterAPI -Resource $Resource -Method $Method -Parameters $Parameters -OAuthSettings $OAuthSettings
+        Invoke-TwitterAPI -Method $Method -ResourceUrl $ResourceUrl -Resource $Resource -Parameters $Parameters -OAuthSettings $OAuthSettings
 
     }
     End {

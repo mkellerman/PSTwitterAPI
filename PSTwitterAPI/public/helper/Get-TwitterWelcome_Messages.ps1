@@ -1,4 +1,4 @@
-function Get-TwitterWelcome_Messages {
+﻿function Get-TwitterWelcome_Messages {
 
 <#
 .SYNOPSIS
@@ -38,7 +38,7 @@ function Get-TwitterWelcome_Messages {
     Process {
 
         If (-Not $OAuthSettings) { $OAuthSettings = Get-TwitterOAuthSettings -Resource $Resource }
-        Invoke-TwitterAPI -Resource $Resource -Method $Method -Parameters $Parameters -OAuthSettings $OAuthSettings
+        Invoke-TwitterAPI -Method $Method -ResourceUrl $ResourceUrl -Resource $Resource -Parameters $Parameters -OAuthSettings $OAuthSettings
 
     }
     End {

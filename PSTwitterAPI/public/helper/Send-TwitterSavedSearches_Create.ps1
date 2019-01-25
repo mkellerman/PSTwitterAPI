@@ -1,4 +1,4 @@
-function Send-TwitterSavedSearches_Create {
+﻿function Send-TwitterSavedSearches_Create {
 
 <#
 .SYNOPSIS
@@ -34,7 +34,7 @@ function Send-TwitterSavedSearches_Create {
     Process {
 
         If (-Not $OAuthSettings) { $OAuthSettings = Get-TwitterOAuthSettings -Resource $Resource }
-        Invoke-TwitterAPI -Resource $Resource -Method $Method -Parameters $Parameters -OAuthSettings $OAuthSettings
+        Invoke-TwitterAPI -Method $Method -ResourceUrl $ResourceUrl -Resource $Resource -Parameters $Parameters -OAuthSettings $OAuthSettings
 
     }
     End {

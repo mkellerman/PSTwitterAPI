@@ -1,4 +1,4 @@
-function Get-TwitterCollections_List {
+﻿function Get-TwitterCollections_List {
 
 <#
 .SYNOPSIS
@@ -52,7 +52,7 @@ function Get-TwitterCollections_List {
     Process {
 
         If (-Not $OAuthSettings) { $OAuthSettings = Get-TwitterOAuthSettings -Resource $Resource }
-        Invoke-TwitterAPI -Resource $Resource -Method $Method -Parameters $Parameters -OAuthSettings $OAuthSettings
+        Invoke-TwitterAPI -Method $Method -ResourceUrl $ResourceUrl -Resource $Resource -Parameters $Parameters -OAuthSettings $OAuthSettings
 
     }
     End {

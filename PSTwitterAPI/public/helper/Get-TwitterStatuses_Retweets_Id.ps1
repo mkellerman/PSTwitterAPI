@@ -1,4 +1,4 @@
-function Get-TwitterStatuses_Retweets_Id {
+﻿function Get-TwitterStatuses_Retweets_Id {
 
 <#
 .SYNOPSIS
@@ -42,7 +42,7 @@ function Get-TwitterStatuses_Retweets_Id {
     Process {
 
         If (-Not $OAuthSettings) { $OAuthSettings = Get-TwitterOAuthSettings -Resource $Resource }
-        Invoke-TwitterAPI -Resource $Resource -Method $Method -Parameters $Parameters -OAuthSettings $OAuthSettings
+        Invoke-TwitterAPI -Method $Method -ResourceUrl $ResourceUrl -Resource $Resource -Parameters $Parameters -OAuthSettings $OAuthSettings
 
     }
     End {

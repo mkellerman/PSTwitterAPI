@@ -1,4 +1,4 @@
-function Send-TwitterMedia_Upload_Append {
+﻿function Send-TwitterMedia_Upload_Append {
 
 <#
 .SYNOPSIS
@@ -69,7 +69,7 @@ function Send-TwitterMedia_Upload_Append {
     Process {
 
         If (-Not $OAuthSettings) { $OAuthSettings = Get-TwitterOAuthSettings -Resource $Resource }
-        Invoke-TwitterAPI -Resource $Resource -Method $Method -Parameters $Parameters -OAuthSettings $OAuthSettings
+        Invoke-TwitterAPI -Method $Method -ResourceUrl $ResourceUrl -Resource $Resource -Parameters $Parameters -OAuthSettings $OAuthSettings
 
     }
     End {

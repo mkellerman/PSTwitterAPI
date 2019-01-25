@@ -1,4 +1,4 @@
-function Send-TwitterTyping_Indicator {
+﻿function Send-TwitterTyping_Indicator {
 
 <#
 .SYNOPSIS
@@ -7,7 +7,7 @@ function Send-TwitterTyping_Indicator {
 .DESCRIPTION
     POST direct_messages/indicate_typing
     
-    Displays a visual typing indicator in the recipient�s Direct Message conversation view with the sender. Each request triggers a typing indicator animation with a duration of ~3 seconds.
+    Displays a visual typing indicator in the recipient’s Direct Message conversation view with the sender. Each request triggers a typing indicator animation with a duration of ~3 seconds.
     
     Usage
     
@@ -46,7 +46,7 @@ function Send-TwitterTyping_Indicator {
     Process {
 
         If (-Not $OAuthSettings) { $OAuthSettings = Get-TwitterOAuthSettings -Resource $Resource }
-        Invoke-TwitterAPI -Resource $Resource -Method $Method -Parameters $Parameters -OAuthSettings $OAuthSettings
+        Invoke-TwitterAPI -Method $Method -ResourceUrl $ResourceUrl -Resource $Resource -Parameters $Parameters -OAuthSettings $OAuthSettings
 
     }
     End {

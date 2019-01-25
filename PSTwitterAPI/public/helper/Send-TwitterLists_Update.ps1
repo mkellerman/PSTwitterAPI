@@ -1,4 +1,4 @@
-function Send-TwitterLists_Update {
+﻿function Send-TwitterLists_Update {
 
 <#
 .SYNOPSIS
@@ -54,7 +54,7 @@ function Send-TwitterLists_Update {
     Process {
 
         If (-Not $OAuthSettings) { $OAuthSettings = Get-TwitterOAuthSettings -Resource $Resource }
-        Invoke-TwitterAPI -Resource $Resource -Method $Method -Parameters $Parameters -OAuthSettings $OAuthSettings
+        Invoke-TwitterAPI -Method $Method -ResourceUrl $ResourceUrl -Resource $Resource -Parameters $Parameters -OAuthSettings $OAuthSettings
 
     }
     End {

@@ -1,4 +1,4 @@
-function Get-TwitterUsers_ProfileBanner {
+﻿function Get-TwitterUsers_ProfileBanner {
 
 <#
 .SYNOPSIS
@@ -40,7 +40,7 @@ function Get-TwitterUsers_ProfileBanner {
     Process {
 
         If (-Not $OAuthSettings) { $OAuthSettings = Get-TwitterOAuthSettings -Resource $Resource }
-        Invoke-TwitterAPI -Resource $Resource -Method $Method -Parameters $Parameters -OAuthSettings $OAuthSettings
+        Invoke-TwitterAPI -Method $Method -ResourceUrl $ResourceUrl -Resource $Resource -Parameters $Parameters -OAuthSettings $OAuthSettings
 
     }
     End {

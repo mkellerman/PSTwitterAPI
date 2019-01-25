@@ -1,4 +1,4 @@
-function Send-TwitterRead_Receipt {
+﻿function Send-TwitterRead_Receipt {
 
 <#
 .SYNOPSIS
@@ -7,7 +7,7 @@ function Send-TwitterRead_Receipt {
 .DESCRIPTION
     POST direct_messages/mark_read
     
-    Marks a message as read in the recipient�s Direct Message conversation view with the sender.
+    Marks a message as read in the recipient’s Direct Message conversation view with the sender.
 
 .PARAMETER last_read_event_id (required)
     
@@ -46,7 +46,7 @@ function Send-TwitterRead_Receipt {
     Process {
 
         If (-Not $OAuthSettings) { $OAuthSettings = Get-TwitterOAuthSettings -Resource $Resource }
-        Invoke-TwitterAPI -Resource $Resource -Method $Method -Parameters $Parameters -OAuthSettings $OAuthSettings
+        Invoke-TwitterAPI -Method $Method -ResourceUrl $ResourceUrl -Resource $Resource -Parameters $Parameters -OAuthSettings $OAuthSettings
 
     }
     End {

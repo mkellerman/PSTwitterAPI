@@ -1,4 +1,4 @@
-function Send-TwitterUsers_ReportSpam {
+﻿function Send-TwitterUsers_ReportSpam {
 
 <#
 .SYNOPSIS
@@ -42,7 +42,7 @@ function Send-TwitterUsers_ReportSpam {
     Process {
 
         If (-Not $OAuthSettings) { $OAuthSettings = Get-TwitterOAuthSettings -Resource $Resource }
-        Invoke-TwitterAPI -Resource $Resource -Method $Method -Parameters $Parameters -OAuthSettings $OAuthSettings
+        Invoke-TwitterAPI -Method $Method -ResourceUrl $ResourceUrl -Resource $Resource -Parameters $Parameters -OAuthSettings $OAuthSettings
 
     }
     End {

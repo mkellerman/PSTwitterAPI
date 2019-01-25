@@ -1,4 +1,4 @@
-function Get-TwitterUsers_Search {
+﻿function Get-TwitterUsers_Search {
 
 <#
 .SYNOPSIS
@@ -48,7 +48,7 @@ function Get-TwitterUsers_Search {
     Process {
 
         If (-Not $OAuthSettings) { $OAuthSettings = Get-TwitterOAuthSettings -Resource $Resource }
-        Invoke-TwitterAPI -Resource $Resource -Method $Method -Parameters $Parameters -OAuthSettings $OAuthSettings
+        Invoke-TwitterAPI -Method $Method -ResourceUrl $ResourceUrl -Resource $Resource -Parameters $Parameters -OAuthSettings $OAuthSettings
 
     }
     End {

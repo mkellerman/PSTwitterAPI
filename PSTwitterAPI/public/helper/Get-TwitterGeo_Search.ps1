@@ -1,4 +1,4 @@
-function Get-TwitterGeo_Search {
+﻿function Get-TwitterGeo_Search {
 
 <#
 .SYNOPSIS
@@ -74,7 +74,7 @@ Specify a place_id. For example, to scope all results to places within "San Fran
     Process {
 
         If (-Not $OAuthSettings) { $OAuthSettings = Get-TwitterOAuthSettings -Resource $Resource }
-        Invoke-TwitterAPI -Resource $Resource -Method $Method -Parameters $Parameters -OAuthSettings $OAuthSettings
+        Invoke-TwitterAPI -Method $Method -ResourceUrl $ResourceUrl -Resource $Resource -Parameters $Parameters -OAuthSettings $OAuthSettings
 
     }
     End {
