@@ -3,7 +3,7 @@ Try { Set-BuildEnvironment -Path "${PSScriptRoot}\.." -ErrorAction SilentlyConti
 Remove-Module ${env:BHProjectName} -ErrorAction SilentlyContinue -Force -Confirm:$False
 $Script:Module = Import-Module ${env:BHPSModuleManifest} -Force -PassThru
 
-Describe "General project validation: ${env:BHProjectName}" {
+Describe "General project validation" {
 
     Context 'Basic Module Testing' {
         # Original idea from: https://kevinmarquette.github.io/2017-01-21-powershell-module-continious-delivery-pipeline/
@@ -116,7 +116,7 @@ Describe "General project validation: ${env:BHProjectName}" {
     }
 }
 
-Describe "${env:BHProjectName} ScriptAnalyzer" -Tag 'Compliance' {
+Describe "ScriptAnalyzer" -Tag 'Compliance' {
 
     # Get a list of all internal and Exported functions
     $ItemFiles = @()
@@ -128,8 +128,11 @@ Describe "${env:BHProjectName} ScriptAnalyzer" -Tag 'Compliance' {
         ExcludeRule = @('PSUseSingularNouns', 'PSUseShouldProcessForStateChangingFunctions' )
     }
 
-    ForEach ($ItemFile in $ItemFiles) {
-        Context "Testing File - $($ItemFile.Name)" {
+    Context "Strict mode" {
+ 
+        Set-StrictMode -Version Latest
+        ForEach ($ItemFile in $ItemFiles) {
+
             $ScriptAnalyzerResults = Invoke-ScriptAnalyzer -Path $ItemFile.FullName @PSScriptAnalyzerSettings
             $TestResults = $ScriptAnalyzerResults | Foreach-Object {
                 @{
@@ -152,10 +155,11 @@ Describe "${env:BHProjectName} ScriptAnalyzer" -Tag 'Compliance' {
                     $ScriptName | Should BeNullOrEmpty
                 }
             } Else {
-                It "Function should not return any errors" {
-                    $TestResults.Count | Should Be 0
+                It "Function $($ItemFile.Name) should return no errors" {
+                    $TestResults | Should BeNullOrEmpty
                 }
             }
+
         }
 
     }
