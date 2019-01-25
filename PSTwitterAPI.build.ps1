@@ -45,7 +45,7 @@ task UpdateManifest {
     Write-Output -InputObject ('Manifest Version  : {0}' -f $ManifestVersion)
 
     Try {
-        $PSGalleryModule = Find-Module -Name $env:ProjectName -Repository PSGallery
+        $PSGalleryModule = Find-Module -Name $env:BHProjectName -Repository PSGallery
         [System.Version]$PSGalleryVersion = $PSGalleryModule.Version
     } Catch {
         [System.Version]$PSGalleryVersion = '0.0.0'
@@ -91,7 +91,7 @@ task PublishModule -If ($Configuration -eq 'Production') {
             "Skipping deployment: To deploy, ensure that...`n" +
             "`t* You are in a known build system (Current: $ENV:BHBuildSystem)`n" +
             "`t* You are committing to the master branch (Current: $ENV:BHBranchName) `n" +
-            "`t* Your commit message includes !deploy (Current: $ENV:BHCommitMessage)" |
+            "`t* Your commit message includes !publish (Current: $ENV:BHCommitMessage)" |
                 Write-Host
         }
 
