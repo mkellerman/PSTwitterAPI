@@ -3,7 +3,7 @@ $Script:OAuthCollection = [System.Collections.ArrayList]@()
 $Script:EndPointBaseUrl = 'https://api.twitter.com/1.1'
 $Script:EndPointFileFormat = 'json'
 
-$Script:CmdletBindingParameters = @('Verbose','Debug','ErrorAction','WarningAction','InformationAction','ErrorVariable','WarningVariable','InformationVariable','OutVariable','OutBuffer','PipelineVariable')
+$Script:CmdletBindingParameters = (Get-Command 'Get-Culture').Parameters.Keys
 
 #Get public and private function definition files.
 $Public = @( Get-ChildItem -Path $PSScriptRoot\public\*.ps1 -Recurse -ErrorAction SilentlyContinue )
