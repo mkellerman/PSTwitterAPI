@@ -1,4 +1,5 @@
-Try { Set-BuildEnvironment -Path "${PSScriptRoot}\.." -ErrorAction SilentlyContinue -Force } Catch { }
+Try   { Set-BuildEnvironment -Path "${PSScriptRoot}\.." -ErrorAction Stop -Force } 
+Catch { Set-BuildEnvironment -Path ".\.." -ErrorAction Stop -Force -Force }
 
 Remove-Module ${env:BHProjectName} -ErrorAction SilentlyContinue -Force -Confirm:$False
 $Script:Module = Import-Module ${env:BHPSModuleManifest} -Force -PassThru
