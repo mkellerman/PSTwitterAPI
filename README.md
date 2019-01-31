@@ -164,6 +164,6 @@ Get-TwitterUsers_Lookup -screen_name 'mkellerman'
 
 ## Resources
 
-- https://twittercommunity.com/t/how-to-get-my-api-key/7033
+- https://twittercommunity.com/t/twitter-oauth-keys/119836
 - https://dev.twitter.com/rest/public
 
