@@ -26,7 +26,8 @@ function Invoke-TwitterAPI {
     $RestMethod_Params['Uri'] = $OAuthParameters.endpoint_url
     $RestMethod_Params['Method'] = $OAuthParameters.endpoint_method
     $RestMethod_Params['Headers'] = @{ 'Authorization' = $OAuthParameters.endpoint_authorization }
-    $RestMethod_Params['ContentType'] = "application/x-www-form-urlencoded"
+    $RestMethod_Params['ContentType'] = $OAuthParameters.endpoint_contenttype
+    $RestMethod_Params['Body'] = $OAuthParameters.endpoint_body
     Invoke-RestMethod @RestMethod_Params
 
 }

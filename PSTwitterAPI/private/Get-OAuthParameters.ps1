@@ -1,7 +1,7 @@
 function Get-OAuthParameters {
 
     [OutputType('System.Management.Automation.PSCustomObject')]
-    Param($ApiKey, $ApiSecret, $AccessToken, $AccessTokenSecret, $Method, $ResourceUrl, $Parameters)
+    Param($ApiKey, $ApiSecret, $AccessToken, $AccessTokenSecret, $Method, $ResourceUrl, [hashtable]$Parameters)
 
     Process{
 
@@ -15,14 +15,17 @@ function Get-OAuthParameters {
 		    $OAuthTimestamp = [System.Convert]::ToInt64((Get-Eposh).TotalSeconds).ToString();
 
             ## EscapeDataString the parameters
+            $EscapedParameters = @{}
             foreach($Param in $($Parameters.Keys)){
-                $Parameters[$Param] = [System.Uri]::EscapeDataString($Parameters[$Param])
+                $EscapedParameters[$Param] = [System.Uri]::EscapeDataString($Parameters[$Param])
             }
 
             ## Build the enpoint url
             $EndPointUrl = "${ResourceUrl}?"
-            $Parameters.GetEnumerator() | Sort-Object Name | ForEach-Object { $EndPointUrl += "$($_.Key)=$($_.Value)&" }
-            $EndPointUrl = $EndPointUrl.TrimEnd('&')
+            If ($Method -ne 'POST') {
+                $EscapedParameters.GetEnumerator() | Where-Object { $_.Value -is [string] } | Sort-Object Name | ForEach-Object { $EndPointUrl += "$($_.Key)=$($_.Value)&" }
+                $EndPointUrl = $EndPointUrl.TrimEnd('&')
+            }
 
             ## Build the signature
             $SignatureBase = "$([System.Uri]::EscapeDataString("${ResourceUrl}"))&"
@@ -34,7 +37,9 @@ function Get-OAuthParameters {
 				'oauth_token' = $AccessToken;
 				'oauth_version' = "1.0";
             }
-	        $Parameters.Keys | ForEach-Object { $SignatureParams.Add($_ , $Parameters.Item($_)) }
+            If ($Method -ne 'POST') {
+                $EscapedParameters.Keys | ForEach-Object { $SignatureParams.Add($_ , $EscapedParameters.Item($_)) }
+            }
 
 			## Create a string called $SignatureBase that joins all URL encoded 'Key=Value' elements with a &
 			## Remove the URL encoded & at the end and prepend the necessary 'POST&' verb to the front
@@ -46,7 +51,7 @@ function Get-OAuthParameters {
 			## Create the hashed string from the base signature
 			$SignatureKey = [System.Uri]::EscapeDataString($ApiSecret) + "&" + [System.Uri]::EscapeDataString($AccessTokenSecret);
 
-			$hmacsha1 = new-object System.Security.Cryptography.HMACSHA1;
+			$hmacsha1 = New-Object System.Security.Cryptography.HMACSHA1;
 			$hmacsha1.Key = [System.Text.Encoding]::ASCII.GetBytes($SignatureKey);
 			$OAuthSignature = [System.Convert]::ToBase64String($hmacsha1.ComputeHash([System.Text.Encoding]::ASCII.GetBytes($SignatureBase)));
 
@@ -63,6 +68,13 @@ function Get-OAuthParameters {
             $OAuthParameters.Add('endpoint_url', $EndPointUrl)
             $OAuthParameters.Add('endpoint_method', $Method)
             $OAuthParameters.Add('endpoint_authorization', $OAuthString)
+            $OAuthParameters.Add('endpoint_contentType', "application/x-www-form-urlencoded")
+
+            # If it's a post, send all the parameters as json within the body.
+            If ($Method -eq 'POST') {
+                $OAuthParameters.Add('endpoint_contentType', "application/json")
+                $OAuthParameters.Add('endpoint_body', "$($Parameters | ConvertTo-Json -Depth 99 -Compress)")
+            }
 
             Return $OAuthParameters
 
