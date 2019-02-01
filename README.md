@@ -7,7 +7,7 @@
 
 ## Features
 
-- API Helpers cmdlets to mimic +120 Twitter API enpoints.
+- API Helpers cmdlets to mimic +125 Twitter API enpoints.
 - You can set multiple ApiKey/Token.
 - Handles rate limit for you, and rotate through your ApiKeys.
 - [WIP] Handles loops to request more data (eg: 200 tweets per call). 
@@ -33,7 +33,19 @@ $OAuthSettings = @{
 Set-TwitterOAuthSettings @OAuthSettings
 
 # Use one of the API Helpers provided:
-Get-TwitterUsers_Lookup -screen_name 'mkellerman'
+$TwitterUser = Get-TwitterUsers_Lookup -screen_name 'mkellerman'
+
+# Send tweet to your timeline:
+Send-TwitterStatuses_Update -status "Hello World!! @mkellerman #PSTwitterAPI"
+
+# Send DM to a user:
+$Event = Send-TwitterDirectMessages_EventsNew -recipient_id $TwitterUser.Id -text "Hello @$($TwitterUser.screen_name)!! #PSTwitterAPI"
+
+# Get the tweets you would see on your timeline:
+$TwitterStatuses = Get-TwitterStatuses_HomeTimeline
+
+# Get tweets from someone elses timeline (what they tweeted):
+$TwitterStatuses = Get-TwitterStatuses_UserTimeline -screen_name 'mkellerman'
 
 ```
 
@@ -104,6 +116,8 @@ Get-TwitterUsers_Lookup -screen_name 'mkellerman'
  - Get-TwitterUsers_ProfileBanner
  - Get-TwitterUsers_Search
  - Get-TwitterUsers_Show
+ - Get-TwitterUsers_Suggestions
+ - Get-TwitterUsers_Suggestions_Slug
  - Get-TwitterUsers_Suggestions_SlugMembers
  - Remove-TwitterCustomProfiles_Destroy
  - Send-TwitterAccount_RemoveProfileBanner
