@@ -26,8 +26,15 @@ function Get-APIHelperFunction ($ApiResource) {
     
     Write-Warning $ApiResource.ReferenceUrl
     Enter-SeUrl -Driver $Driver -Url $ApiResource.ReferenceUrl
-
-    $eResourceReference = $Driver.FindElementByCssSelector('div[class="c01-rich-text-editor"]').FindElementByTagName("div").FindElementsByXPath("*")
+    
+    Try { $eResourceReference = $Driver.FindElementByCssSelector('div[class="c01-rich-text-editor"]').FindElementByCssSelector('div[class="toctree"]').FindElementsByXPath("*") } Catch { }
+    If ($eResourceReference.Text -notcontains 'Resource URL') {
+        Try { $eResourceReference = $Driver.FindElementByCssSelector('div[class="c01-rich-text-editor"]').FindElementByTagName("div").FindElementsByXPath("*") } Catch { }
+        If ($eResourceReference.Text -notcontains 'Resource URL') {
+            Write-Warning 'Resource URL not found.'
+            Return $ApiResource
+        }
+    } 
 
     $eResource = @{}
     $Parameter = "Description"
@@ -87,8 +94,10 @@ function Get-APIHelperFunction ($ApiResource) {
 Import-Module Selenium
 $Driver = Start-SeChrome
 
+#$ApiResources = Get-Content ".\twitter_api.json" | ConvertFrom-Json ## Used for Debuging
 $ApiResources = Get-APIHelperResources
 
+#ForEach($ApiResource in ($ApiResources | Where-Object { -Not($_.ReferenceProperties.Parameters.Count -gt 0) })) { ## Used for Debuging
 ForEach($ApiResource in $ApiResources) {
 
     $ApiResource = Get-APIHelperFunction -ApiResource $ApiResource
