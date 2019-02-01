@@ -23,6 +23,7 @@ function Get-TwitterOAuthSettings {
     }
 
     If ($OAuthSettings) {
+        Write-Verbose "Using AccessToken '$($OAuthSettings.AccessToken)'"
         $OAuthSettings = @{
             ApiKey = $OAuthSettings.ApiKey
             ApiSecret = $OAuthSettings.ApiSecret
@@ -34,7 +35,6 @@ function Get-TwitterOAuthSettings {
         Throw "No OAuthSettings was found. Use 'Set-TwitterOAuthSettings' to set PSTwitterAPI ApiKey & Token."
     }
 
-    Write-Verbose "Using AccessToken '$($OAuthSettings.AccessToken)'"
     Return $OAuthSettings
 
 }
