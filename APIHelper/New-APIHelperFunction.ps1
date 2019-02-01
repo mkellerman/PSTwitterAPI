@@ -77,7 +77,8 @@ $Path = New-Item -Path '.\helper' -ItemType Directory -Force
 $ApiResources = Get-Content ".\twitter_api.json" | ConvertFrom-Json
 
 ForEach ($ApiResource in ($ApiResources | Where-Object { $_.ReferenceProperties.ResourceUrl })) {
-    #if ($ApiResource.Resource -ne '/geo/id/:place_id') { Continue }
+    #if ($ApiResource.Resource -ne '/account/settings') { Continue } ## Used for Debuging
     Write-Warning "New-APIHelperFunction: $($ApiResource.Resource)"
     New-APIHelperFunction -ApiResource $ApiResource -Path $Path
 }
+
