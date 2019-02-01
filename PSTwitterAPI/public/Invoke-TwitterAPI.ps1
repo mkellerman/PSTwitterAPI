@@ -6,8 +6,10 @@ function Invoke-TwitterAPI {
         [string]$ResourceUrl,
         [Parameter(Mandatory)]
         [string]$Method,
-        [Parameter(Mandatory)]
+        [Parameter(Mandatory=$false)]
         $Parameters,
+        [Parameter(Mandatory=$false)]
+        $Body,
         [Parameter(Mandatory)]
         $OAuthSettings
     )
@@ -20,6 +22,7 @@ function Invoke-TwitterAPI {
     $OAuthParameters_Params['Method'] = $Method
     $OAuthParameters_Params['ResourceUrl'] = $ResourceUrl
     $OAuthParameters_Params['Parameters'] = $Parameters
+    $OAuthParameters_Params['Body'] = $Body
     $OAuthParameters = Get-OAuthParameters @OAuthParameters_Params
 
     $RestMethod_Params = @{}

@@ -1,7 +1,7 @@
 function Get-OAuthParameters {
 
     [OutputType('System.Management.Automation.PSCustomObject')]
-    Param($ApiKey, $ApiSecret, $AccessToken, $AccessTokenSecret, $Method, $ResourceUrl, [hashtable]$Parameters)
+    Param($ApiKey, $ApiSecret, $AccessToken, $AccessTokenSecret, $Method, $ResourceUrl, $Parameters, $Body)
 
     Process{
 
@@ -17,15 +17,13 @@ function Get-OAuthParameters {
             ## EscapeDataString the parameters
             $EscapedParameters = @{}
             foreach($Param in $($Parameters.Keys)){
-                $EscapedParameters[$Param] = [System.Uri]::EscapeDataString($Parameters[$Param])
+                $EscapedParameters[$Param] = "$([System.Uri]::EscapeDataString($Parameters[$Param]))".Replace("!","%21").Replace("'","%27").Replace("(","%28").Replace(")","%29").Replace("*","%2A")
             }
 
             ## Build the enpoint url
             $EndPointUrl = "${ResourceUrl}?"
-            If ($Method -ne 'POST') {
-                $EscapedParameters.GetEnumerator() | Where-Object { $_.Value -is [string] } | Sort-Object Name | ForEach-Object { $EndPointUrl += "$($_.Key)=$($_.Value)&" }
-                $EndPointUrl = $EndPointUrl.TrimEnd('&')
-            }
+            $EscapedParameters.GetEnumerator() | Where-Object { $_.Value -is [string] } | Sort-Object Name | ForEach-Object { $EndPointUrl += "$($_.Key)=$($_.Value)&" }
+            $EndPointUrl = $EndPointUrl.TrimEnd('&')
 
             ## Build the signature
             $SignatureBase = "$([System.Uri]::EscapeDataString("${ResourceUrl}"))&"
@@ -37,9 +35,7 @@ function Get-OAuthParameters {
 				'oauth_token' = $AccessToken;
 				'oauth_version' = "1.0";
             }
-            If ($Method -ne 'POST') {
-                $EscapedParameters.Keys | ForEach-Object { $SignatureParams.Add($_ , $EscapedParameters.Item($_)) }
-            }
+            $EscapedParameters.Keys | ForEach-Object { $SignatureParams.Add($_ , $EscapedParameters.Item($_)) }
 
 			## Create a string called $SignatureBase that joins all URL encoded 'Key=Value' elements with a &
 			## Remove the URL encoded & at the end and prepend the necessary 'POST&' verb to the front
@@ -68,12 +64,14 @@ function Get-OAuthParameters {
             $OAuthParameters.Add('endpoint_url', $EndPointUrl)
             $OAuthParameters.Add('endpoint_method', $Method)
             $OAuthParameters.Add('endpoint_authorization', $OAuthString)
-            $OAuthParameters.Add('endpoint_contentType', "application/x-www-form-urlencoded")
 
-            # If it's a post, send all the parameters as json within the body.
-            If ($Method -eq 'POST') {
+            # If Body is required, change contenttype to json
+            # Example: Send-TwitterDirectMessages_EventsNew
+            If ($Body) {
                 $OAuthParameters.Add('endpoint_contentType', "application/json")
-                $OAuthParameters.Add('endpoint_body', "$($Parameters | ConvertTo-Json -Depth 99 -Compress)")
+                $OAuthParameters.Add('endpoint_body', "$($Body | ConvertTo-Json -Depth 99 -Compress)")
+            } Else {
+                $OAuthParameters.Add('endpoint_contentType', "application/x-www-form-urlencoded")
             }
 
             Return $OAuthParameters

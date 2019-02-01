@@ -34,12 +34,12 @@
     }
     Process {
 
-        $Parameters = @{ 
+        $Body = @{ 
             event = @{
-                type = $Parameters['type']
+                type = $type
                 message_create = @{
                     target = @{ recipient_id = $Parameters['recipient_id'] }
-                    message_data = @{ text = $parameters['text'] }
+                    message_data = @{ text = $Parameters['text'] }
                 }
             }
         }
@@ -52,7 +52,7 @@
         }
 
         If (-Not $OAuthSettings) { $OAuthSettings = Get-TwitterOAuthSettings -Resource $Resource }
-        Invoke-TwitterAPI -Method $Method -ResourceUrl $ResourceUrl -Parameters $Parameters -OAuthSettings $OAuthSettings
+        Invoke-TwitterAPI -Method $Method -ResourceUrl $ResourceUrl -Body $Body -OAuthSettings $OAuthSettings
 
     }
     End {
