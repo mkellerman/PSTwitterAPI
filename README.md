@@ -1,7 +1,8 @@
 [![PSGallery Version](https://img.shields.io/powershellgallery/v/PSTwitterAPI.svg?style=for-the-badge&label=PowerShell%20Gallery)](https://www.powershellgallery.com/packages/PSTwitterAPI/)
-![PSGallery Downloads](https://img.shields.io/powershellgallery/dt/PSTwitterAPI.svg?style=for-the-badge&label=Downloads)
+[![PSGallery Downloads](https://img.shields.io/powershellgallery/dt/PSTwitterAPI.svg?style=for-the-badge&label=Downloads)](https://www.powershellgallery.com/packages/PSTwitterAPI/)
 
-![Azure Pipeline](https://img.shields.io/azure-devops/build/mkellerman/PSTwitterAPI/7.svg?style=for-the-badge&label=Azure%20Pipeline)
+[![Azure Pipeline](https://img.shields.io/azure-devops/build/mkellerman/PSTwitterAPI/7.svg?style=for-the-badge&label=Azure%20Pipeline)](https://dev.azure.com/mkellerman/PSTwitterAPI/_build?definitionId=7)
+[![Analytics](https://ga-beacon.appspot.com/UA-133882862-1/PSTwitterAPI?pixel)](https://github.com/mkellerman)
 
 # PSTwitterAPI
 
