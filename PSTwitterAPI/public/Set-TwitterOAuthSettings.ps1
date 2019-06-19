@@ -9,11 +9,22 @@ function Set-TwitterOAuthSettings {
         [switch]$PassThru,
         [switch]$Force
     )
+
+    begin{
+        $flagPath = "$(${function:Get-TwitterOAuthSettings}.module.modulebase)/private/flag.cli.xml"
+        $AZDO = Test-Path -Path $flagPath -ErrorAction SilentlyContinue
+    }
+
     Process {
 
         If ($OAuthSettings = Get-TwitterOAuthSettings -AccessToken $AccessToken -ErrorAction SilentlyContinue) {
             If ($Force) {
-                [void]$Script:OAuthCollection.Remove($OAuthSettings)
+                if(-not($AZDO)){
+                    [void]$Script:OAuthCollection.Remove($OAuthSettings)
+                }
+                else{
+                    Write-Verbose "Force param supplied but no OAuth settings were found. Skipping removal due to AZDO condition."
+                }
             } Else {
                 Write-Warning "OAuthSettings with AccessToken '${AccessToken}' already exists."
             }
@@ -31,7 +42,15 @@ function Set-TwitterOAuthSettings {
         
         $OAuthSettings['RateLimitStatus'] = ConvertFrom-RateLimitStatus -RateLimitStatus $RateLimitStatus
 
-        [void]$Script:OAuthCollection.Add($OAuthSettings)
+        if($AZDO){
+            #Workaround for Azure DevOps
+            #Changing default behaviour to cope with build agent variable scoping
+            #API creds will now be stored in clixml file instead of script variable
+            $OAuthSettings | Export-CliXML -Path "$(${function:Set-TwitterOAuthSettings}.module.modulebase)\private\Oauthfile.cli.xml"
+        }
+        else{
+            [void]$Script:OAuthCollection.Add($OAuthSettings)
+        }
 
         If ($PassThru) { $OAuthSettings }
 
