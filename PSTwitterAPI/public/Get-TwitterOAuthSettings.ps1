@@ -32,7 +32,7 @@ function Get-TwitterOAuthSettings {
         }
     } Else {
         $OAuthSettings = $null
-        Throw "No OAuthSettings was found. Use 'Set-TwitterOAuthSettings' to set PSTwitterAPI ApiKey & Token."
+        Write-Warning "No OAuthSettings was found. Use 'Set-TwitterOAuthSettings' to set PSTwitterAPI ApiKey & Token."
     }
 
     Return $OAuthSettings
