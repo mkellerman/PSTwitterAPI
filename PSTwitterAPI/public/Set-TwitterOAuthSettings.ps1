@@ -46,7 +46,7 @@ function Set-TwitterOAuthSettings {
             #Workaround for Azure DevOps
             #Changing default behaviour to cope with build agent variable scoping
             #API creds will now be stored in clixml file instead of script variable
-            $OAuthSettings | Export-CliXML -Path "$(${function:Set-TwitterOAuthSettings}.module.modulebase)\private\Oauthfile.cli.xml"
+            $OAuthSettings | Export-CliXML -Path "$(${function:Set-TwitterOAuthSettings}.module.modulebase)/private/Oauthfile.cli.xml"
         }
         else{
             [void]$Script:OAuthCollection.Add($OAuthSettings)
