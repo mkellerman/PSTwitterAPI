@@ -39,7 +39,7 @@
 
         [string]$Method      = 'POST'
         [string]$Resource    = '/blocks/destroy'
-        [string]$ResourceUrl = 'POST https://api.twitter.com/1.1/blocks/destroy.json'
+        [string]$ResourceUrl = 'https://api.twitter.com/1.1/blocks/destroy.json'
 
     }
     Process {
