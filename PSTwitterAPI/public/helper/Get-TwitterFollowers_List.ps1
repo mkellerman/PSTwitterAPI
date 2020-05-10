@@ -62,7 +62,7 @@ The response from the API will include a previous_cursor and next_cursor to allo
             $ResourceUrl = $ResourceUrl -Replace $UrlParameter.Value, $UrlParameterValue
         }
 
-        If (-Not $OAuthSettings) { $OAuthSettings = Get-TwitterOAuthSettings -Resource $Resource }
+        $OAuthSettings = Get-TwitterOAuthSettings -Resource $Resource
         Invoke-TwitterAPI -Method $Method -ResourceUrl $ResourceUrl -Parameters $Parameters -OAuthSettings $OAuthSettings
 
     }
