@@ -77,8 +77,16 @@
             $ResourceUrl = $ResourceUrl -Replace $UrlParameter.Value, $UrlParameterValue
         }
 
-        $OAuthSettings = Get-TwitterOAuthSettings -Resource $Resource
-        Invoke-TwitterAPI -Method $Method -ResourceUrl $ResourceUrl -Parameters $Parameters -OAuthSettings $OAuthSettings
+        Do {
+    
+            $OAuthSettings = Get-TwitterOAuthSettings -Resource $Resource
+            Invoke-TwitterAPI -Method $Method -ResourceUrl $ResourceUrl -Parameters $Parameters -OAuthSettings $OAuthSettings | Tee-Object -Variable Results | ForEach-Object { $_ }
+            
+            $Parameters['max_id'] = $Results.id | Sort-Object | Select-Object -First 1
+            $Parameters['count'] = ([int]($Parameters['count'])) - ([int]($Results.Count))
+            If ($Parameters['count'] -le 0) { Return }
+
+        } While ($Results)
 
     }
     End {
