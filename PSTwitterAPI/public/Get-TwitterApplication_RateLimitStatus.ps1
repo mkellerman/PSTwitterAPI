@@ -28,12 +28,14 @@
 #>
     [CmdletBinding()]
     Param(
-        [string]$resources
+        [string]$resources,
+        [hashtable]$OAuthSettings
     )
     Begin {
 
         [hashtable]$Parameters = $PSBoundParameters
                    $CmdletBindingParameters | ForEach-Object { $Parameters.Remove($_) }
+                   $Parameters.Remove('OAuthSettings')
 
         [string]$Method      = 'GET'
         [string]$Resource    = '/application/rate_limit_status'
@@ -49,7 +51,7 @@
             $ResourceUrl = $ResourceUrl -Replace $UrlParameter.Value, $UrlParameterValue
         }
 
-        If (-Not $OAuthSettings) { $OAuthSettings = Get-TwitterOAuthSettings -Resource $Resource }
+        If (!$OAuthSettings) { $OAuthSettings = Get-TwitterOAuthSettings -Resource $Resource }
         Invoke-TwitterAPI -Method $Method -ResourceUrl $ResourceUrl -Parameters $Parameters -OAuthSettings $OAuthSettings
 
     }
