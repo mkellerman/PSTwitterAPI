@@ -11,7 +11,12 @@
 - API Helpers cmdlets to mimic +125 Twitter API enpoints.
 - You can set multiple ApiKey/Token.
 - Handles rate limit for you, and rotate through your ApiKeys.
-- [WIP] Handles loops to request more data (eg: 200 tweets per call). 
+- Handles loops to request more data. Available with:
+  - Get-TwitterSearch_Tweets
+  - Get-TwitterStatuses_HomeTimeline
+  - Get-TwitterStatuses_MentionsTimeline
+  - Get-TwitterStatuses_UserTimeline
+
 
 ## Installation
 
@@ -43,10 +48,13 @@ Send-TwitterStatuses_Update -status "Hello World!! @mkellerman #PSTwitterAPI"
 $Event = Send-TwitterDirectMessages_EventsNew -recipient_id $TwitterUser.Id -text "Hello @$($TwitterUser.screen_name)!! #PSTwitterAPI"
 
 # Get the tweets you would see on your timeline:
-$TwitterStatuses = Get-TwitterStatuses_HomeTimeline
+$TwitterStatuses = Get-TwitterStatuses_HomeTimeline -count 100
 
 # Get tweets from someone elses timeline (what they tweeted):
-$TwitterStatuses = Get-TwitterStatuses_UserTimeline -screen_name 'mkellerman'
+$TwitterStatuses = Get-TwitterStatuses_UserTimeline -screen_name 'mkellerman' -count 400
+
+# Search for tweets:
+$Tweets = Get-TwitterSearch_Tweets -q '#powershell' -count 400
 
 ```
 
