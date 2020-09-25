@@ -50,6 +50,9 @@ $Event = Send-TwitterDirectMessages_EventsNew -recipient_id $TwitterUser.Id -tex
 # Get the tweets you would see on your timeline:
 $TwitterStatuses = Get-TwitterStatuses_HomeTimeline -count 100
 
+# Show last 5 home timeline tweets
+Get-TwitterStatuses_HomeTimeline -count 5 | Select-Object -Property text -ExpandProperty user | Select-Object name, text | Format-List
+
 # Get tweets from someone elses timeline (what they tweeted):
 $TwitterStatuses = Get-TwitterStatuses_UserTimeline -screen_name 'mkellerman' -count 400
 
